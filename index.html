@@ -123,6 +123,22 @@
         margin-top: 28px
     }
 
+    .bio dd ul {
+        margin: 10px 0 0;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+    .bio dd li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .bio dd li::marker {
+        color: #ff6051;
+    }
+
+
     .stage {
         position: relative
     }
@@ -1079,33 +1095,59 @@
     <nav><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a
             href="#skills">Skills</a><a href="#hobbies">Hobbies</a><a href="#contact">Contact</a></nav>
 </header>
+
 <main id="main">
     <div class="reel">
         <section class="hero">
-            <div class="intro"><small class="meta">Robotics × Software</small>
+            <div class="intro">
+                <small class="meta">Robotics × Software</small>
                 <h1>I’m Jill<span>.</span></h1>
+
                 <div class="role"
-                    aria-label="A Roboticist, ML software engineer, Software developer, Robotics Software Engineer, Designer, Autonomus Engineer, Perception Engineer, AI Software Engineer, A student, A researcher">
-                    <span aria-hidden="true">A <strong id="role">Robotics engineer</strong><i class="caret"></i></span>
+                    aria-label="Robotics Engineer, Robotics Software Engineer, ML Engineer, Software Developer, Autonomous Systems Engineer, Perception Engineer, AI Engineer, Designer, Student, Researcher">
+                    <span aria-hidden="true">
+                        A <strong id="role">Robotics Engineer</strong>
+                        <i class="caret"></i>
+                    </span>
                 </div>
-                <p>I build robotic systems that perceive, understand, and navigate the world around them, combining
-                    autonomy, sensor fusion, and machine learning to turn data into intelligent decisions.</p><a
-                    class="action" href="#projects">Explore projects ↘</a>
+
+                <p>
+                    I build robotic systems that perceive, understand, and navigate
+                    the world around them, combining autonomy, sensor fusion, and
+                    machine learning to turn data into intelligent decisions.
+                </p>
+
+                <a class="action" href="#projects">Explore projects ↘</a>
             </div>
-            <div class="biocopy" id="about"><small class="meta">Behind the helmet</small>
+
+            <div class="biocopy" id="about">
+                <small class="meta">Behind the helmet</small>
                 <h2>Meet Jill.</h2>
+
                 <div class="bio">
-                    <p>I’m a Computer Science & Robotics student at University at Buffalo. My work brings together software development and
-                        robotics, from machine learning to autonomous and perception.</p>
+                    <p>
+                        I'm a Computer Science student at the University at Buffalo,
+                        specializing in robotics. My work brings together software
+                        development, machine learning, robotic perception, and
+                        autonomous systems.
+                    </p>
+
                     <dl>
                         <dt>School</dt>
                         <dd>University at Buffalo</dd>
+
                         <dt>Program</dt>
-                        <dd>Computer Science & Robotics · 2027</dd>
+                        <dd>Computer Science · Robotics Minor · 2027</dd>
+
                         <dt>Currently exploring</dt>
-                        <dd>- Autonomous systems, robotic perception, and sensor fusion.
-                            - Perception, automation, and intelligent robotic systems.
-                            - Multi-sensor fusion and autonomy across robotic platforms</dd>
+                        <dd>
+                            <ul>
+                                <li>Autonomous systems and robotic navigation</li>
+                                <li>Robotic perception and multi-sensor fusion</li>
+                                <li>Machine learning for intelligent robotic systems</li>
+                                <li>Automation across diverse robotic platforms</li>
+                            </ul>
+                        </dd>
                     </dl>
                 </div>
             </div>
