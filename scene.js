@@ -42,10 +42,10 @@ const project=renderer(document.querySelector("#projector"),`precision highp flo
  vec3 color=base*(.28+.84*max(dot(n,light),0.))+studio*(hit.y>=6.?.15:1.)*vec3(1.,.92,.85)+pow(1.-max(dot(n,-rd),0.),3.)*vec3(.46,.18,.30);
  if(hit.y>3.5&&hit.y<5.5)color+=base*.35;
  gl_FragColor=vec4(pow(color,vec3(.8)),1.);}`);
-const words=['Robotics Engineer','Automation Engineer','Perception Engineer', 'Software Developer','ML Engineer', 'Roboticist','AI Engineer', 'Student','Researcher'],role=document.querySelector('#role');
+const words=['Robotics Engineer','Automation Engineer','Perception Engineer','Software Developer','ML Engineer','Roboticist','AI Engineer','Student','Researcher'],role=document.querySelector('#role'),article=document.querySelector('#article');
 let lastFrame=-100;
 function paint(t){if(t-lastFrame<16){requestAnimationFrame(paint);return}lastFrame=t;const fixed=still.matches,box=reel.getBoundingClientRect(),p=clamp(-box.top/Math.max(1,box.height-innerHeight)),bi=smooth((p-.64)/.21);gx+=(px-gx)*.07;gy+=(py-gy)*.07;
- intro.style.opacity=fixed?1:1-bi;bio.style.opacity=fixed?1:bi;intro.inert=!fixed&&bi>.5;bio.inert=!fixed&&bi<.5;bio.style.pointerEvents=bio.inert?'none':'auto';
- if(box.bottom>0&&box.top<innerHeight){lab(fixed?1:p,fixed?0:gx,fixed?0:-gy,fixed?1:t/1000);const phase=t/1000%6,word=words[Math.floor(t/6000)%3];role.textContent=fixed?words[0]:word.slice(0,Math.ceil(word.length*clamp(phase<1.2?phase/1.2:phase>5?6-phase:1)));}
- const beam=fixed?1:smooth((innerHeight-contact.getBoundingClientRect().top)/Math.min(innerHeight*.60,320));if(contact.getBoundingClientRect().bottom>0&&contact.getBoundingClientRect().top<innerHeight)project(beam,0,0,0);contact.style.setProperty('--beam',beam);contact.style.setProperty('--turn',(22-42*beam)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
+intro.style.opacity=fixed?1:1-bi;bio.style.opacity=fixed?1:bi;intro.inert=!fixed&&bi>.5;bio.inert=!fixed&&bi<.5;bio.style.pointerEvents=bio.inert?'none':'auto';
+if(box.bottom>0&&box.top<innerHeight){lab(fixed?1:p,fixed?0:gx,fixed?0:-gy,fixed?1:t/1000);const phase=t/1000%6,word=words[Math.floor(t/6000)%words.length];role.textContent=fixed?words[0]:word.slice(0,Math.ceil(word.length*clamp(phase<1.2?phase/1.2:phase>5?6-phase:1)));if(article)article.textContent=/^[AEIOU]/i.test(fixed?words[0]:word)?'An':'A';}
+const beam=fixed?1:smooth((innerHeight-contact.getBoundingClientRect().top)/Math.min(innerHeight*.60,320));if(contact.getBoundingClientRect().bottom>0&&contact.getBoundingClientRect().top<innerHeight)project(beam,0,0,0);contact.style.setProperty('--beam',beam);contact.style.setProperty('--turn',(22-42*beam)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
 document.querySelector('a[href="#about"]').onclick=e=>{if(!still.matches){e.preventDefault();window.scrollTo({top:scrollY+reel.getBoundingClientRect().top+(reel.offsetHeight-innerHeight)*.91,behavior:'smooth'})}};
