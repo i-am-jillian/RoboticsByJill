@@ -42,7 +42,7 @@ const project=renderer(document.querySelector("#projector"),`precision highp flo
  vec3 color=base*(.28+.84*max(dot(n,light),0.))+studio*(hit.y>=6.?.15:1.)*vec3(1.,.92,.85)+pow(1.-max(dot(n,-rd),0.),3.)*vec3(.46,.18,.30);
  if(hit.y>3.5&&hit.y<5.5)color+=base*.35;
  gl_FragColor=vec4(pow(color,vec3(.8)),1.);}`);
-const words=['Robotics Engineer','Automation Engineer','Perception Engineer','Software Developer','ML Engineer','Roboticist','AI Engineer','Student','Researcher'],role=document.querySelector('#role'),article=document.querySelector('#article');
+const words=['Robotics Engineer','Automation Engineer','Perception Engineer','Software Developer','ML Engineer','Roboticist','AI Engineer','Student','Researcher','Lead'],role=document.querySelector('#role'),article=document.querySelector('#article');
 let lastFrame=-100;
 function paint(t){if(t-lastFrame<16){requestAnimationFrame(paint);return}lastFrame=t;const fixed=still.matches,box=reel.getBoundingClientRect(),p=clamp(-box.top/Math.max(1,box.height-innerHeight)),bi=smooth((p-.64)/.21);gx+=(px-gx)*.07;gy+=(py-gy)*.07;
 intro.style.opacity=fixed?1:1-bi;bio.style.opacity=fixed?1:bi;intro.inert=!fixed&&bi>.5;bio.inert=!fixed&&bi<.5;bio.style.pointerEvents=bio.inert?'none':'auto';
