@@ -66,9 +66,12 @@ html { scroll-padding-top: calc(var(--header-height, 90px) + 16px); }
   .contacts { padding: 16px 0; min-width: 0; }
   .projection .contacts { grid-column: 1 / -1; grid-row: 2; grid-template-columns: 1fr; }
   .portrait-projection { grid-column: 2; grid-row: 1; width: 100%; }
-  footer { align-items: flex-start; flex-direction: column; gap: 12px; font-size: 14px; }
+  footer { align-items: center; text-align: center; flex-direction: column; gap: 12px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .experience-entry, .menu-toggle span { transition: none; }
   .projection .contacts, .portrait-projection { opacity: 1; transform: none; }
 }
+
+.spoken-languages { margin-top: 22px; padding-top: 16px; border-top: 1px solid #414044; }
+.spoken-languages>summary { font-size: 16px; cursor: pointer; }

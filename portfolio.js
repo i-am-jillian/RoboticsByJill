@@ -49,11 +49,57 @@ const skillGroups = {
   'Robotics': ['ROS 2', 'Nav2', 'SLAM Toolbox', 'FAST-LIO', 'BEV Localization', 'Sensor Fusion', 'GNSS/RTK', 'AprilTags', 'Gazebo', 'RViz', 'Foxglove'],
   'Software & AI': ['React', 'YOLO', 'OpenCV', 'NumPy', 'Pygame', 'PyTorch', 'MediaPipe', 'OpenAI Agents SDK', 'AI Agents', 'Prompting'],
   'Development & design': ['Git', 'GitHub', 'Linux', 'Docker', 'Figma', 'Agile', 'A/B Testing', 'Usability Testing'],
-  'Hardware & embedded systems': ['Sensors', 'ESP32 / Arduino', 'NVIDIA Jetson', 'Raspberry Pi', 'Electronic Circuits', 'FreeRTOS', 'Fusion 360', 'OpenSCAD'],
-  'Spoken languages': ['Spanish', 'English']
+  'Hardware & embedded systems': ['Sensors', 'ESP32 / Arduino', 'NVIDIA Jetson', 'Raspberry Pi', 'Electronic Circuits', 'FreeRTOS', 'Fusion 360', 'OpenSCAD']
 };
-const proficientSkills = new Set(['Python', 'C++', 'ROS 2', 'OpenCV', 'ESP32 / Arduino', 'Sensors', 'GNSS/RTK', 'Spanish', 'English']);
-const intermediateSkills = new Set(['JavaScript', 'HTML / CSS', 'React']);
+// Edit the value beside each skill: Proficient, Intermediate, Beginner, or Want to learn.
+const skillLevels = {
+  'Python': 'Proficient',
+  'C': 'Beginner',
+  'C++': 'Proficient',
+  'Java': 'Beginner',
+  'JavaScript': 'Intermediate',
+  'MATLAB': 'Beginner',
+  'HTML / CSS': 'Intermediate',
+  'ROS 2': 'Proficient',
+  'Nav2': 'Beginner',
+  'SLAM Toolbox': 'Beginner',
+  'FAST-LIO': 'Beginner',
+  'BEV Localization': 'Beginner',
+  'Sensor Fusion': 'Beginner',
+  'GNSS/RTK': 'Proficient',
+  'AprilTags': 'Beginner',
+  'Gazebo': 'Beginner',
+  'RViz': 'Beginner',
+  'Foxglove': 'Beginner',
+  'React': 'Intermediate',
+  'YOLO': 'Beginner',
+  'OpenCV': 'Proficient',
+  'NumPy': 'Beginner',
+  'Pygame': 'Beginner',
+  'PyTorch': 'Beginner',
+  'MediaPipe': 'Beginner',
+  'OpenAI Agents SDK': 'Beginner',
+  'AI Agents': 'Beginner',
+  'Prompting': 'Beginner',
+  'Git': 'Beginner',
+  'GitHub': 'Beginner',
+  'Linux': 'Beginner',
+  'Docker': 'Beginner',
+  'Figma': 'Beginner',
+  'Agile': 'Beginner',
+  'A/B Testing': 'Beginner',
+  'Usability Testing': 'Beginner',
+  'Sensors': 'Proficient',
+  'ESP32 / Arduino': 'Proficient',
+  'NVIDIA Jetson': 'Beginner',
+  'Raspberry Pi': 'Beginner',
+  'Electronic Circuits': 'Beginner',
+  'FreeRTOS': 'Beginner',
+  'Fusion 360': 'Beginner',
+  'OpenSCAD': 'Beginner',
+  'Spanish': 'Proficient',
+  'English': 'Proficient',
+};
 const skillContainer = document.querySelector('#technology-skills');
 for (const [group, technologies] of Object.entries(skillGroups)) {
   const details = document.createElement('details');
@@ -62,12 +108,24 @@ for (const [group, technologies] of Object.entries(skillGroups)) {
   const summary = document.createElement('summary');
   summary.textContent = group;
   details.append(summary);
-  for (const technology of technologies) {
-    const row = document.createElement('div'); row.className = 'skillrow';
-    const name = document.createElement('b'); name.textContent = technology;
-    if (technology === 'Sensors') name.title = 'LiDAR, IMU, cameras (including ZED 2), and wheel encoders';
-    const level = document.createElement('small'); level.textContent = proficientSkills.has(technology) ? 'Proficient' : intermediateSkills.has(technology) ? 'Intermediate' : 'Beginner';
-    row.append(name, level); details.append(row);
+  function appendSkillRows(container, names) {
+    for (const technology of names) {
+      const row = document.createElement('div'); row.className = 'skillrow';
+      const name = document.createElement('b'); name.textContent = technology;
+      if (technology === 'Sensors') name.title = 'LiDAR, IMU, cameras (including ZED 2), and wheel encoders';
+      const level = document.createElement('small'); level.textContent = skillLevels[technology] || 'Beginner';
+      row.append(name, level); container.append(row);
+    }
+  }
+  appendSkillRows(details, technologies);
+  if (group === 'Programming') {
+    const languages = document.createElement('details');
+    languages.className = 'spoken-languages';
+    const languageSummary = document.createElement('summary');
+    languageSummary.textContent = 'Spoken languages';
+    languages.append(languageSummary);
+    appendSkillRows(languages, ['Spanish', 'English']);
+    details.append(languages);
   }
   skillContainer.append(details);
 }
