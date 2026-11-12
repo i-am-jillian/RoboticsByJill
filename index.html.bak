@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robotics By Jill</title>
+<style>
+    * {
+        box-sizing: border-box
+    }
+
+    html {
+        scroll-behavior: smooth
+    }
+
+    body {
+        margin: 0;
+        background: #101011;
+        color: #f3f2ed;
+        font: 17px/1.55 Inter, Arial, sans-serif
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none
+    }
+
+    header,
+    section,
+    footer {
+        padding: 24px max(6vw, 22px)
+    }
+
+    header,
+    nav,
+    .bar,
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px
+    }
+
+    header {
+        border-bottom: 1px solid #383838
+    }
+
+    .brand {
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: -1.5px
+    }
+
+    .mark {
+        color: #ff5649
+    }
+
+    nav {
+        font-size: 14px
+    }
+
+    a:hover,
+    summary:hover {
+        color: #ff6557
+    }
+
+    .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        min-height: 660px;
+        background: radial-gradient(ellipse at 76% 53%, #30201f, transparent 44%)
+    }
+
+    small,
+    button,
+    .meta {
+        font: 12px/1.5 'IBM Plex Mono', monospace;
+        letter-spacing: .08em
+    }
+
+    .meta {
+        color: #ff7569;
+        text-transform: uppercase
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+        margin: 0
+    }
+
+    h1 {
+        font-size: clamp(62px, 8vw, 130px);
+        line-height: .94;
+        letter-spacing: -.078em;
+        margin: 24px 0
+    }
+
+    h1 em {
+        color: #ff5748;
+        font-style: normal
+    }
+
+    p {
+        color: #bcb9b7;
+        max-width: 49ch
+    }
+
+    .action,
+    button {
+        display: inline-block;
+        background: #ff594b;
+        color: #141011;
+        padding: 13px 19px;
+        border: 0;
+        border-radius: 3px;
+        font-weight: 700;
+        cursor: pointer
+    }
+
+    .action {
+        margin-top: 28px
+    }
+
+    .bio dd ul {
+        margin: 10px 0 0;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+    .bio dd li {
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .bio dd li::marker {
+        color: #ff6051;
+    }
+
+
+    .stage {
+        position: relative
+    }
+
+    canvas {
+        width: 100%;
+        aspect-ratio: 1;
+        display: block
+    }
+
+    .bar {
+        border-top: 1px solid #514440;
+        color: #bbb;
+        padding: 9px 0
+    }
+
+    .bar button,
+    .filters button {
+        background: transparent;
+        color: inherit
+    }
+
+    .filters button[aria-pressed=true] {
+        background: #f05b4f;
+        color: #131313
+    }
+
+    section:not(.hero) {
+        border-top: 1px solid #383838;
+        padding-top: 58px;
+        padding-bottom: 64px
+    }
+
+    h2 {
+        font-size: clamp(36px, 5vw, 68px);
+        letter-spacing: -.065em;
+        line-height: 1.12;
+        margin: 8px 0 24px
+    }
+
+    .filters {
+        margin-bottom: 18px
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px
+    }
+
+    article,
+    details {
+        border: 1px solid #424040;
+        padding: 24px;
+        background: #181819
+    }
+
+    h3 {
+        font-size: 25px;
+        letter-spacing: -1px;
+        margin: 12px 0
+    }
+
+    summary {
+        cursor: pointer;
+        font-weight: bold
+    }
+
+    details+details {
+        margin-top: 10px
+    }
+
+    details p {
+        padding-top: 12px
+    }
+
+    .skills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px
+    }
+
+    .meter {
+        height: 5px;
+        background: #383638;
+        margin-top: 8px
+    }
+
+    .meter i {
+        display: block;
+        height: 100%;
+        background: #ff594b
+    }
+
+    footer {
+        border-top: 1px solid #383838
+    }
+
+    .skip {
+        position: absolute;
+        left: -999px
+    }
+
+    .skip:focus {
+        left: 12px;
+        background: black;
+        z-index: 4
+    }
+
+    :focus-visible {
+        outline: 3px solid #ff9b86;
+        outline-offset: 3px
+    }
+
+    @media(max-width:760px) {
+        header {
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        nav {
+            gap: 15px;
+            flex-wrap: wrap
+        }
+
+        .hero {
+            grid-template-columns: 1fr;
+            padding-top: 50px
+        }
+
+        .stage {
+            max-width: 450px;
+            width: 100%;
+            margin: auto
+        }
+
+        .cards,
+        .skills {
+            grid-template-columns: 1fr
+        }
+
+        .bar {
+            gap: 4px
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        html {
+            scroll-behavior: auto
+        }
+    }
+
+    .reel {
+        height: 155svh;
+        background: radial-gradient(ellipse at 73% 48%, #401f20, transparent 52%), #101011
+    }
+
+    .hero {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        min-height: 0;
+        background: none;
+        grid-template-columns: .85fr 1.15fr
+    }
+
+    .hero h1 {
+        font-size: clamp(78px, 9.8vw, 168px);
+        margin: 18px 0 8px
+    }
+
+    .hero h1 span,
+    .role strong {
+        color: #ff6051
+    }
+
+    .role {
+        font-size: clamp(24px, 3vw, 55px);
+        letter-spacing: -.055em;
+        line-height: 1.15;
+        margin-bottom: 22px;
+        min-height: 2.3em
+    }
+
+    .role strong {
+        display: inline
+    }
+
+    .stage canvas {
+        aspect-ratio: 1.08
+    }
+
+    .bar {
+        margin: 0 5%
+    }
+
+    .intro {
+        z-index: 1
+    }
+
+    @media(max-width:760px) {
+        .hero {
+            grid-template-columns: 1fr;
+            align-content: center;
+            padding-top: 18px;
+            gap: 8px
+        }
+
+        .hero h1 {
+            font-size: 72px
+        }
+
+        .role {
+            min-height: 0;
+            margin-bottom: 10px
+        }
+
+        .hero .action {
+            margin-top: 12px
+        }
+
+        .stage {
+            max-width: min(90vw, 44svh)
+        }
+
+        .stage .bar {
+            margin: 0;
+            white-space: nowrap
+        }
+
+        .reel {
+            height: 135svh
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce), (max-height:580px) {
+        .reel {
+            height: auto
+        }
+
+        .hero {
+            position: relative;
+            height: auto;
+            min-height: 80svh
+        }
+    }
+
+    .brand {
+        display: flex;
+        gap: 9px;
+        align-items: center
+    }
+
+    .mark {
+        display: flex
+    }
+
+    .caret {
+        display: inline-block;
+        height: .83em;
+        border-left: 2px solid #ff695d;
+        margin-left: 4px
+    }
+
+    .bio,
+    .contacts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px
+    }
+
+    .bio p {
+        font-size: clamp(20px, 2vw, 31px);
+        letter-spacing: -.03em
+    }
+
+    .bio dl {
+        margin: 0
+    }
+
+    .bio dt,
+    .timeline small {
+        color: #c39b96;
+        font: 12px/1.5 monospace
+    }
+
+    .bio dd {
+        margin: 1px 0 12px
+    }
+
+    .timeline {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        border-top: 1px solid #333;
+        padding: 22px 0
+    }
+
+    .timeline ol {
+        margin: 0;
+        list-style: none;
+        border-left: 1px solid #94433a;
+        padding: 0 0 0 22px
+    }
+
+    .timeline li {
+        position: relative
+    }
+
+    .timeline li:before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff6454;
+        position: absolute;
+        top: 7px;
+        left: -27px
+    }
+
+    .timeline h4 {
+        margin: 6px 0
+    }
+
+    .skills {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr))
+    }
+
+    .skills>div,
+    .contacts>div {
+        border-top: 1px solid #55403d;
+        padding: 13px 0
+    }
+
+    .chips {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap
+    }
+
+    .chips span {
+        padding: 7px 13px;
+        background: #1c1c1d;
+        color: #bbb;
+        font-size: 14px
+    }
+
+    .status {
+        display: inline-block;
+        margin-top: 20px;
+        font: 12px monospace;
+        border: 1px solid #68504b;
+        border-radius: 16px;
+        padding: 5px 10px
+    }
+
+    article {
+        transition: transform .23s, box-shadow .23s, border-color .23s
+    }
+
+    article:is(:hover, :focus-visible) {
+        transform: perspective(700px) translateY(-7px) rotateX(3deg);
+        border-color: #ff6253;
+        box-shadow: 0 0 16px #ff3f303d, inset 0 0 9px #ff3f3019
+    }
+
+    @media(min-height:581px) and (prefers-reduced-motion:no-preference) {
+        .reel {
+            height: 210svh
+        }
+    }
+
+    @media(max-width:650px) {
+
+        .bio,
+        .timeline {
+            grid-template-columns: 1fr
+        }
+
+        .bar {
+            flex-wrap: wrap
+        }
+
+        .role {
+            min-height: 2.3em
+        }
+
+        .contacts {
+            grid-template-columns: 1fr
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        article {
+            transition: none
+        }
+
+        article:is(:hover, :focus-visible) {
+            transform: none
+        }
+    }
+
+    .bar {
+        flex-wrap: wrap;
+        gap: 3px
+    }
+
+    .bar #release {
+        border: 1px solid #77504a;
+        color: #ffc5b9
+    }
+
+    .skills,
+    .contacts {
+        align-items: start
+    }
+
+    .skills details,
+    .contacts details {
+        margin: 0;
+        border-radius: 8px
+    }
+
+    .skillrow {
+        border-top: 1px solid #414044;
+        margin-top: 14px;
+        padding-top: 12px
+    }
+
+    .skillrow small {
+        display: inline-block;
+        color: #ff978c;
+        margin-left: 10px
+    }
+
+    .skillrow p {
+        font-size: 14px
+    }
+
+    .contacts summary {
+        display: flex;
+        align-items: center;
+        gap: 14px
+    }
+
+    .contacts svg {
+        width: 24px;
+        height: 24px;
+        stroke: #ff7569;
+        fill: none;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round
+    }
+
+    .contacts summary:after {
+        content: '+';
+        margin-left: auto
+    }
+
+    .contacts details[open] summary:after {
+        content: '−'
+    }
+
+    .contacts details[open],
+    .skillgroup[open] {
+        border-color: #915148
+    }
+
+    .timeline li,
+    .chips span,
+    .contacts svg {
+        transition: transform .3s, color .3s
+    }
+
+    .chips span:hover,
+    .contacts summary:hover svg {
+        transform: translateY(-3px) rotate(-5deg);
+        color: #ffd1ca
+    }
+
+    @media(prefers-reduced-motion:no-preference) {
+
+        .timeline.seen li,
+        .chips.seen span,
+        .contacts details[open] p,
+        .skillgroup[open] .skillrow {
+            animation: arrive .55s both
+        }
+
+        .chips.seen span:nth-child(2) {
+            animation-delay: .12s
+        }
+
+        .chips.seen span:nth-child(3) {
+            animation-delay: .24s
+        }
+
+        @keyframes arrive {
+            from {
+                opacity: .1;
+                translate: 0 14px
+            }
+
+            to {
+                opacity: 1;
+                translate: 0 0
+            }
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+        .chips span,
+        .contacts svg {
+            transition: none
+        }
+    }
+
+    .mascot {
+        position: fixed;
+        right: 12px;
+        bottom: 10px;
+        z-index: 4
+    }
+
+    .shin {
+        width: 68px;
+        padding: 0;
+        background: none;
+        filter: drop-shadow(0 3px 4px #0008)
+    }
+
+    .shin svg {
+        display: block
+    }
+
+    .hidepet {
+        background: #272325;
+        color: #ddd;
+        border-radius: 50%;
+        padding: 2px 6px;
+        vertical-align: top
+    }
+
+    .petnote {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        background: #30272a;
+        color: white;
+        font-size: 12px;
+        white-space: nowrap;
+        border-radius: 7px;
+        padding: 4px 8px
+    }
+
+    .petnote:empty {
+        display: none
+    }
+
+    .mascot.tucked .shin {
+        width: 29px
+    }
+
+    .mascot.tucked .hidepet {
+        display: none
+    }
+
+    @media(prefers-reduced-motion:no-preference) {
+        .shin svg {
+            animation: peek 6s ease-in-out infinite;
+            transform-origin: bottom
+        }
+
+        .shin:hover svg {
+            animation: peek .6s ease-in-out infinite
+        }
+
+        @keyframes peek {
+
+            0%,
+            70%,
+            100% {
+                transform: rotate(0)
+            }
+
+            80% {
+                transform: rotate(-7deg)
+            }
+
+            90% {
+                transform: rotate(4deg)
+            }
+        }
+    }
+
+    footer {
+        padding-right: 100px
+    }
+
+    .hero {
+        position: sticky;
+        isolation: isolate;
+        overflow: hidden;
+        grid-template-columns: .83fr 1.17fr
+    }
+
+    .hero .intro,
+    .biocopy {
+        grid-area: 1/1;
+        align-self: center
+    }
+
+    .biocopy {
+        opacity: 0;
+        pointer-events: none
+    }
+
+    .biocopy .bio {
+        display: block
+    }
+
+    .biocopy dl {
+        margin-top: 18px
+    }
+
+    .biocopy h2 {
+        font-size: clamp(42px, 6vw, 96px)
+    }
+
+    .cinematic {
+        grid-area: 1/2;
+        position: relative;
+        aspect-ratio: 1;
+        max-width: 820px;
+        width: 100%;
+        perspective: 1000px;
+        mask-image: linear-gradient(to right, transparent, #000 5%, #000 97%, transparent)
+    }
+
+    .cinematic img,
+    .helmet {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        inset: 0;
+        object-fit: cover
+    }
+
+    .helmet {
+        overflow: hidden;
+        transform-origin: 50% 17%
+    }
+
+    .shin3 {
+        position: absolute;
+        width: 22%;
+        height: 24%;
+        bottom: 4%;
+        left: 3%;
+        aspect-ratio: auto;
+        filter: drop-shadow(0 8px 5px #0008)
+    }
+
+    .projection {
+        display: grid;
+        grid-template-columns: minmax(0, .7fr) 1.3fr;
+        align-items: center;
+        gap: 5vw;
+        overflow: hidden
+    }
+
+    .emitter {
+        position: relative;
+        perspective: 650px
+    }
+
+    .emitter img {
+        width: 100%;
+        display: block;
+        transform: scaleX(-1) rotateY(var(--turn, 0deg));
+        mask-image: radial-gradient(ellipse, #000 45%, transparent 75%)
+    }
+
+    .emitter i {
+        position: absolute;
+        left: 73%;
+        top: 29%;
+        width: 75%;
+        height: 45%;
+        background: linear-gradient(90deg, #ff52466b, #ff54490f);
+        clip-path: polygon(0 52%, 100% 0, 100% 100%);
+        opacity: var(--beam, 0)
+    }
+
+    .contacts {
+        grid-template-columns: 1fr;
+        gap: 0
+    }
+
+    .contacts .channel {
+        padding: 9px 12px;
+        border: 0;
+        border-bottom: 1px solid #503234;
+        transform: translateX(calc((1 - var(--beam, 1))*12px));
+        background: linear-gradient(90deg, #55242144, transparent)
+    }
+
+    .channel h3 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 18px;
+        margin: 0
+    }
+
+    .channel p {
+        font-size: 13px;
+        padding-left: 36px
+    }
+
+    .reel {
+        height: 285svh
+    }
+
+    @media(max-width:760px) {
+        .hero {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            align-content: center
+        }
+
+        .hero .intro,
+        .biocopy {
+            grid-area: 1/1
+        }
+
+        .cinematic {
+            grid-area: 2/1;
+            max-width: min(90vw, 44svh)
+        }
+
+        .biocopy .bio p {
+            font-size: 16px
+        }
+
+        .biocopy dl {
+            display: none
+        }
+
+        .projection {
+            grid-template-columns: 1fr 1.7fr;
+            gap: 2vw
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce), (max-height:540px) {
+        .reel {
+            height: auto
+        }
+
+        .hero {
+            position: relative;
+            height: auto
+        }
+
+        .biocopy {
+            grid-area: auto;
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .hero .intro {
+            grid-area: auto
+        }
+
+        .cinematic {
+            grid-area: auto
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap
+        }
+
+        .hero>div {
+            flex: 1 1 300px
+        }
+
+        .biocopy {
+            order: 3;
+            padding: 24px 0
+        }
+
+        .helmet {
+            display: none
+        }
+    }
+
+    .contacts .channel {
+        opacity: calc(.16 + .84 * var(--beam, 1))
+    }
+
+    .helmet {
+        background: #09090b
+    }
+
+    .cinematic {
+        border-radius: 8px
+    }
+
+    .cinematic .bench {
+        object-position: center
+    }
+
+    .emitter img {
+        filter: contrast(1.06)
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        .contacts .channel {
+            opacity: 1
+        }
+    }
+
+    .cinematic {
+        mask-image: none
+    }
+
+    .cinematic #lab {
+        width: 100%;
+        height: 100%;
+        display: block
+    }
+
+    .projection {
+        position: relative;
+        isolation: isolate;
+        background: #ede7dc;
+        color: #211c1b;
+        gap: 0;
+        border-radius: 5px;
+        grid-template-columns: 36% 64%
+    }
+
+    .emitter {
+        position: static
+    }
+
+    .emitter canvas {
+        width: 100%;
+        aspect-ratio: .92
+    }
+
+    .emitter i {
+        left: 26%;
+        top: 0;
+        width: 80%;
+        height: 100%;
+        clip-path: polygon(0 48%, 100% -22%, 100% 122%);
+        background: linear-gradient(90deg, #fe654b, #ff8865);
+        z-index: -1
+    }
+
+    .contacts {
+        padding: 20px 5vw 20px 2vw
+    }
+
+    .contacts .channel {
+        background: transparent;
+        border-color: #982e243a
+    }
+
+    .channel p {
+        color: #48312e
+    }
+
+    .contacts svg {
+        stroke: #5d2622
+    }
+
+    .channel h3 {
+        letter-spacing: -.03em
+    }
+
+    .cinematic {
+        background: radial-gradient(ellipse at 54% 53%, #311d27, transparent 67%)
+    }
+
+    #contact,
+    .projection,
+    .contacts,
+    .contacts .channel {
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        background: transparent;
+        color: #f4eeed
+    }
+
+    .projection .channel p {
+        color: #c2b7b9
+    }
+
+    .projection .contacts svg {
+        stroke: #ff444e;
+        filter: drop-shadow(0 0 2px #ff3848) drop-shadow(0 0 7px #ff253a88)
+    }
+
+    .projection .emitter i {
+        background: linear-gradient(90deg, #ff384954, transparent 93%)
+    }
+
+    .reel,
+    .cinematic {
+        background: #000
+    }
+
+    .cinematic {
+        border-radius: 0
+    }
+
+    @media(min-height:541px) and (prefers-reduced-motion:no-preference) {
+        .reel {
+            height: 330svh
+        }
+
+        .hero {
+            position: sticky;
+            height: 100svh
+        }
+    }
+
+    @media(max-width:760px) and (min-height:541px) {
+        .cinematic {
+            max-width: min(95vw, 49svh)
+        }
+
+        .hero {
+            padding-inline: 18px
+        }
+
+        .hero .role {
+            min-height: 1.2em
+        }
+    }
+</style><a class="skip" href="#main">Skip to introduction</a>
+<header id="top"><a class="brand" href="#top"><span class="mark"><svg aria-hidden="true" width="28" height="28"
+                viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="7" width="22" height="17" rx="6" />
+                <path d="M14 7V3M7 14h5m4 0h5m-11 5h8" />
+            </svg></span> Jill</a>
+    <nav><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a
+            href="#skills">Skills</a><a href="#hobbies">Hobbies</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main id="main">
+    <div class="reel">
+        <section class="hero">
+            <div class="intro">
+                <small class="meta">Robotics × Software</small>
+                <h1>I’m Jill<span>.</span></h1>
+
+                <div class="role"
+                    aria-label="Robotics Engineer, Robotics Software Engineer, ML Engineer, Software Developer, Autonomous Systems Engineer, Perception Engineer, AI Engineer, Designer, Student, Researcher">
+                    <span id="article">A</span>
+                        <strong id="role">Robotics Engineer</strong>
+                        <i class="caret"></i>
+                    </span> 
+                </div>
+
+                <p>
+                    I build robotic systems that perceive, understand, and navigate
+                    the world around them, combining autonomy, sensor fusion, and
+                    machine learning to turn data into intelligent decisions.
+                </p>
+
+                <a class="action" href="#projects">Explore projects ↘</a>
+            </div>
+
+            <div class="biocopy" id="about">
+                <small class="meta">Behind the helmet</small>
+                <h2>Meet Jill.</h2>
+
+                <div class="bio">
+                    <p>
+                        I'm a Computer Science student at the University at Buffalo,
+                        specializing in robotics. My work brings together software
+                        development, machine learning, robotic perception, and
+                        autonomous systems.
+                    </p>
+
+                    <dl>
+                        <dt>School</dt>
+                        <dd>University at Buffalo</dd>
+
+                        <dt>Program</dt>
+                        <dd>Computer Science · Robotics Minor · 2027</dd>
+
+                        <dt>Currently exploring</dt>
+                        <dd>
+                            <ul>
+                                <li>Autonomous systems and robotic navigation</li>
+                                <li>Robotic perception and multi-sensor fusion</li>
+                                <li>Machine learning for intelligent robotic systems</li>
+                                <li>Automation across diverse robotic platforms</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="stage cinematic"><canvas id="lab" role="img"
+                    aria-label="Jill’s articulated helmet and robotics workbench with a Shin-chan figurine, tracked lidar rover, precision tools and robot arm"></canvas>
+            </div>
+        </section>
+    </div>
+    <section id="projects"><small class="meta">Project archive</small>
+        <h2>Selected work.</h2>
+        <div class="filters"></div>
+        <div class="cards"></div>
+    </section>
+    <section id="experience"><small class="meta">Field notes</small>
+        <h2>Experience.</h2>
+        <div class="timeline">
+            <h3>Research</h3>
+            <ol>
+                <li><small>[Start date – end date] · [Time / duration]</small>
+                    <h4>[Lab or institution]</h4>
+                    <p>[Describe your research question, method, and finding.]</p>
+                </li>
+            </ol>
+        </div>
+        <div class="timeline">
+            <h3>Work</h3>
+            <ol>
+                <li><small>[Start date – end date] · [Time / duration]</small>
+                    <h4>[Role · organization]</h4>
+                    <p>[Describe a responsibility and its outcome.]</p>
+                </li>
+            </ol>
+        </div>
+        <div class="timeline">
+            <h3>Hackathons</h3>
+            <ol>
+                <li><small>[Start date – end date] · [Time / duration]</small>
+                    <h4>[Event · team]</h4>
+                    <p>[Share the challenge, what you shipped, and your contribution.]</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+    <section id="skills"><small class="meta">Example skill profile</small>
+        <h2>Technical skills.</h2>
+        <div class="skills">
+            <details class="skillgroup" open>
+                <summary>Languages</summary>
+                <div class="skillrow"><b>Python</b><small>Independent</small>
+                    <p>Build analysis and automation scripts.</p>
+                </div>
+                <div class="skillrow"><b>C++</b><small>Practicing</small>
+                    <p>Implement and debug small programs.</p>
+                </div>
+            </details>
+            <details class="skillgroup">
+                <summary>Frameworks</summary>
+                <div class="skillrow"><b>React</b><small>Practicing</small>
+                    <p>Build components with guidance.</p>
+                </div>
+                <div class="skillrow"><b>FastAPI</b><small>Want to learn</small>
+                    <p>Design a typed service endpoint.</p>
+                </div>
+            </details>
+            <details class="skillgroup">
+                <summary>Robotics</summary>
+                <div class="skillrow"><b>ROS 2</b><small>Practicing</small>
+                    <p>Connect nodes and inspect topics.</p>
+                </div>
+                <div class="skillrow"><b>Navigation</b><small>Want to learn</small>
+                    <p>Plan and test paths in simulation.</p>
+                </div>
+            </details>
+            <details class="skillgroup">
+                <summary>Hardware</summary>
+                <div class="skillrow"><b>Microcontrollers</b><small>Practicing</small>
+                    <p>Read inputs and drive outputs.</p>
+                </div>
+                <div class="skillrow"><b>LiDAR</b><small>Want to learn</small>
+                    <p>Calibrate a sensor and inspect scans.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+    <section id="hobbies">
+        <h2>Off the clock.</h2>
+        <div class="chips"><span>◇ [Hobby one]</span><span>♫ [Hobby two]</span><span>✧ [Hobby three]</span></div>
+    </section>
+    <section id="contact"><small class="meta">Contact</small>
+        <h2>Get in touch.</h2>
+        <div class="projection">
+            <div class="emitter"><canvas id="projector" aria-label="Rotating robot projector"></canvas><i></i></div>
+            <div class="contacts">
+                <div class="channel">
+                    <h3><svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M4 9v11M4 5v1M9 20V9m0 5c0-6 9-7 9 0v6" />
+                        </svg>LinkedIn</h3>
+                    <p>[Professional profile URL]</p>
+                </div>
+                <div class="channel">
+                    <h3><svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path
+                                d="M6 3h12q3 0 3 3v12q0 3-3 3H6q-3 0-3-3V6q0-3 3-3z M16 12a4 4 0 1 1-8 0 4 4 0 1 1 8 0 M17 7h1" />
+                        </svg>Robotics Instagram</h3>
+                    <p>[Robotics Instagram handle]</p>
+                </div>
+                <div class="channel">
+                    <h3><svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M7 5L2 12l5 7m10-14 5 7-5 7m-4-16-3 18" />
+                        </svg>GitHub</h3>
+                    <p>[GitHub profile URL]</p>
+                </div>
+                <div class="channel">
+                    <h3><svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M5 2h10l5 5v15H5z M14 2v6h6 M8 12h9m-9 4h7" />
+                        </svg>Résumés</h3>
+                    <p>[Software résumé PDF] · [Robotics résumé PDF]</p>
+                </div>
+                <div class="channel">
+                    <h3><svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M2 5h20v14H2z M2 6l10 8L22 6" />
+                        </svg>Gmail</h3>
+                    <p>[Email address]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer><b>Jill</b><a href="#top">Back to top ↑</a></footer>
+<script type="module" src="scene.js"></script>
+<script>
+    const tracks = ['All', 'Software', 'Robotics'], items = [['Robotics', 'Motion planner', '[Describe the robot, its environment, and how you planned its motion.]'], ['Software', 'Developer workspace', '[Introduce the workflow, the people using it, and what you built.]'], ['Robotics', 'Simulation toolkit', '[Show how you tested a physical system in simulation.]']]; function filter(t) { document.querySelector('.cards').innerHTML = items.filter(x => t === 'All' || x[0] === t).map(x => '<article tabindex="0"><small class="meta">' + x[0] + ' / Sample</small><h3>' + x[1] + '</h3><p>' + x[2] + '</p><span class="status">' + (x[1] === 'Simulation toolkit' ? 'In progress' : 'Finished') + '</span></article>').join(''); document.querySelectorAll('.filters button').forEach(b => b.setAttribute('aria-pressed', b.textContent === t)) } tracks.forEach(t => { let b = document.createElement('button'); b.textContent = t; b.onclick = () => filter(t); document.querySelector('.filters').append(b) }); filter('All'); const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); observer.unobserve(e.target) } })); document.querySelectorAll('.timeline,.chips').forEach(el => observer.observe(el));
+</script>
+
+</html>
