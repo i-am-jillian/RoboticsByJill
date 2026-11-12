@@ -45,14 +45,15 @@ highlightExperience();
 
 // Levels are editable independently from the project descriptions.
 const skillGroups = {
-  'Programming & web': ['Python', 'C++', 'JavaScript', 'TypeScript', 'HTML / CSS', 'React', 'Next.js'],
-  'Robotics & hardware': ['ROS 2', 'Nav2', 'FAST-LIO', 'Sensors', 'ESP32 / Arduino', 'FreeRTOS', 'Gazebo', 'Foxglove'],
-  'AI & development tools': ['OpenCV', 'PyTorch', 'NumPy', 'YOLO', 'Gemini', 'Docker', 'GitHub'],
-  'Design & fabrication': ['Figma', 'Fusion 360', 'OpenSCAD', '3D Printing'],
+  'Programming': ['Python', 'C', 'C++', 'Java', 'JavaScript', 'MATLAB', 'HTML / CSS'],
+  'Robotics': ['ROS 2', 'Nav2', 'SLAM Toolbox', 'FAST-LIO', 'BEV Localization', 'Sensor Fusion', 'GNSS/RTK', 'AprilTags', 'Gazebo', 'RViz', 'Foxglove'],
+  'Software & AI': ['React', 'YOLO', 'OpenCV', 'NumPy', 'Pygame', 'PyTorch', 'MediaPipe', 'OpenAI Agents SDK', 'AI Agents', 'Prompting'],
+  'Development & design': ['Git', 'GitHub', 'Linux', 'Docker', 'Figma', 'Agile', 'A/B Testing', 'Usability Testing'],
+  'Hardware & embedded systems': ['Sensors', 'ESP32 / Arduino', 'NVIDIA Jetson', 'Raspberry Pi', 'Electronic Circuits', 'FreeRTOS', 'Fusion 360', 'OpenSCAD'],
   'Spoken languages': ['Spanish', 'English']
 };
-const proficientSkills = new Set(['Python', 'C++', 'ROS 2', 'OpenCV', 'ESP32 / Arduino', 'Sensors', 'Spanish', 'English']);
-const intermediateSkills = new Set(['JavaScript', 'HTML / CSS', 'React', '3D Printing']);
+const proficientSkills = new Set(['Python', 'C++', 'ROS 2', 'OpenCV', 'ESP32 / Arduino', 'Sensors', 'GNSS/RTK', 'Spanish', 'English']);
+const intermediateSkills = new Set(['JavaScript', 'HTML / CSS', 'React']);
 const skillContainer = document.querySelector('#technology-skills');
 for (const [group, technologies] of Object.entries(skillGroups)) {
   const details = document.createElement('details');
@@ -64,7 +65,7 @@ for (const [group, technologies] of Object.entries(skillGroups)) {
   for (const technology of technologies) {
     const row = document.createElement('div'); row.className = 'skillrow';
     const name = document.createElement('b'); name.textContent = technology;
-    if (technology === 'Sensors') name.title = 'LiDAR, IMU, cameras, ZED 2, and GNSS/RTK';
+    if (technology === 'Sensors') name.title = 'LiDAR, IMU, cameras (including ZED 2), and wheel encoders';
     const level = document.createElement('small'); level.textContent = proficientSkills.has(technology) ? 'Proficient' : intermediateSkills.has(technology) ? 'Intermediate' : 'Beginner';
     row.append(name, level); details.append(row);
   }
