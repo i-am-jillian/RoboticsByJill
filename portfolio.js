@@ -45,13 +45,14 @@ highlightExperience();
 
 // Levels are editable independently from the project descriptions.
 const skillGroups = {
-  'Languages & web': ['Python', 'C++', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'PHP', 'React', 'Next.js', 'FastAPI', 'REST APIs', 'React Router', 'Socket.IO', 'Auth0'],
-  'Robotics & perception': ['ROS 2', 'Nav2', 'FAST-LIO', 'BEV Localization', 'Sensor Fusion', 'GNSS/RTK', 'LiDAR', 'IMU', 'Cameras', 'ZED 2', 'RealSense', 'AprilTags', 'Terrain Analysis', 'Gazebo', 'Foxglove', 'Docker'],
-  'Machine learning & AI': ['Machine Learning', 'Computer Vision', 'Image Classification', 'MobileNetV3', 'ONNX', 'YOLO', 'OpenCV', 'NumPy', 'Pygame', 'Pose Estimation', 'PyTorch', 'Gemini', 'AI Agents', 'RAG', 'Retrieval', 'LLMs', 'Evaluation'],
-  'Hardware & design': ['FreeRTOS', 'ESP32', 'Arduino', 'Embedded Systems', 'Servo Control', 'I²C', 'Power Electronics', 'Sensor Integration', 'NFC', '3D Printing', 'Microscopy', 'UI/UX', 'HCI']
+  'Programming & web': ['Python', 'C++', 'JavaScript', 'TypeScript', 'HTML / CSS', 'React', 'Next.js'],
+  'Robotics & hardware': ['ROS 2', 'Nav2', 'FAST-LIO', 'Sensors', 'ESP32 / Arduino', 'FreeRTOS', 'Gazebo', 'Foxglove'],
+  'AI & development tools': ['OpenCV', 'PyTorch', 'NumPy', 'YOLO', 'Gemini', 'Docker', 'GitHub'],
+  'Design & fabrication': ['Figma', 'Fusion 360', 'OpenSCAD', '3D Printing'],
+  'Spoken languages': ['Spanish', 'English']
 };
-const proficientSkills = new Set(['Python', 'C++', 'ROS 2', 'OpenCV', 'ESP32', 'Arduino', 'LiDAR', 'Cameras', 'GNSS/RTK']);
-const intermediateSkills = new Set(['Python', 'C++', 'JavaScript', 'HTML', 'CSS', 'React', 'ROS 2', 'Sensor Fusion', 'Computer Vision', 'Machine Learning', '3D Printing']);
+const proficientSkills = new Set(['Python', 'C++', 'ROS 2', 'OpenCV', 'ESP32 / Arduino', 'Sensors', 'Spanish', 'English']);
+const intermediateSkills = new Set(['JavaScript', 'HTML / CSS', 'React', '3D Printing']);
 const skillContainer = document.querySelector('#technology-skills');
 for (const [group, technologies] of Object.entries(skillGroups)) {
   const details = document.createElement('details');
@@ -63,8 +64,16 @@ for (const [group, technologies] of Object.entries(skillGroups)) {
   for (const technology of technologies) {
     const row = document.createElement('div'); row.className = 'skillrow';
     const name = document.createElement('b'); name.textContent = technology;
+    if (technology === 'Sensors') name.title = 'LiDAR, IMU, cameras, ZED 2, and GNSS/RTK';
     const level = document.createElement('small'); level.textContent = proficientSkills.has(technology) ? 'Proficient' : intermediateSkills.has(technology) ? 'Intermediate' : 'Beginner';
     row.append(name, level); details.append(row);
   }
   skillContainer.append(details);
 }
+
+// Keep anchor destinations below the persistent header at every screen size.
+const pageHeader = document.querySelector('header');
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--header-height', pageHeader.offsetHeight + 'px');
+}).observe(pageHeader);
+document.querySelectorAll('.experience-entry details').forEach(details => details.addEventListener('toggle', scheduleHighlight));

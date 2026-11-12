@@ -1,6 +1,13 @@
 /* Responsive navigation and progressive project archive. */
 [hidden], #projects article[hidden] { display: none !important; }
-header { position: relative; z-index: 10; }
+header { position: sticky; top: 0; z-index: 30; background: #101011f5; backdrop-filter: blur(12px); }
+html { scroll-padding-top: calc(var(--header-height, 90px) + 16px); }
+.experience-entry summary { position: relative; cursor: pointer; list-style: none; padding-right: 30px; }
+.experience-entry summary::-webkit-details-marker { display: none; }
+.experience-entry summary .organization { display: block; margin-bottom: 0; }
+.experience-toggle:after { content: '+'; position: absolute; right: 0; top: 5px; color: #ff9a8e; font-size: 25px; }
+.experience-entry details[open] .experience-toggle:after { content: '−'; }
+.experience-entry details>p { margin-top: 18px; }
 .menu-toggle { display: none; }
 .projects-more { display: block; margin: 32px auto 0; min-width: 160px; }
 .hero .intro>.action, .projects-more { font: 700 17px/1.55 Inter, Arial, sans-serif; letter-spacing: normal; transition: color .2s; }
@@ -15,23 +22,26 @@ header { position: relative; z-index: 10; }
 .skills .skillrow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 15px; }
 .skills .skillrow small { margin: 0; letter-spacing: 0; text-align: right; }
 .hobby-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.hobby-grid article { border-top: 1px solid #ff594b70; padding: 24px 0; }
+.hobby-grid article { border: 1px solid #ff594b40; padding: 26px; border-radius: 8px; }
 .hobby-grid h3 { font-size: 25px; line-height: 1.3; margin: 14px 0; }
 .hobby-grid p { color: #c2b7b9; font-size: 16px; }
 .channel a { overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: #ff594b60; text-underline-offset: 5px; }
 .portfolio-placeholders { display: flex; flex-wrap: wrap; gap: 12px 24px; }
 .portfolio-placeholders span { display: grid; gap: 4px; }
 .portfolio-placeholders small { color: #95888a; letter-spacing: .02em; }
-.portrait-projection { margin: 0 auto 20px; max-width: 280px; position: relative; border: 1px solid #ff594b80; box-shadow: 0 0 35px #ff38492b; overflow: hidden; opacity: calc(.3 + var(--beam, 1) * .7); }
+.portrait-projection { margin: 0; width: 100%; max-width: 280px; position: relative; border: 1px solid #ff594b80; box-shadow: 0 0 35px #ff38492b; overflow: hidden; }
 .portrait-projection img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
-.projection .contacts { display: grid; grid-template-columns: minmax(150px, .8fr) minmax(0, 1.2fr); gap: 0 24px; align-items: center; }
-.portrait-projection { grid-row: span 6; }
+.projection { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, .8fr) minmax(0, 1.3fr); align-items: center; gap: 24px; }
+.projection .contacts { display: grid; grid-template-columns: 1fr; padding: 0; min-width: 0; }
+.projection .contacts, .portrait-projection { opacity: var(--reveal, 1); transform: translateX(calc((1 - var(--reveal, 1)) * -18px)) scaleX(calc(.96 + var(--reveal, 1) * .04)); transform-origin: left center; }
+.projection:focus-within .contacts, .projection:focus-within .portrait-projection { opacity: 1; transform: none; }
+.projection .emitter i { left: 15%; width: 65%; opacity: var(--reveal, 1); }
 .portrait-projection:after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent 0 4px, #ff594b12 4px 5px); }
 @media (max-width: 1050px) {
-  header { display: grid; grid-template-columns: 44px minmax(0,1fr) 44px; gap: 10px; align-items: center; }
-  header .brand { grid-column: 2; justify-self: center; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
-  .brand-name { justify-content: center; }
-  .menu-toggle { grid-column: 3; display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: transparent; border: 1px solid #ff594b70; }
+  header { display: grid; grid-template-columns: minmax(0,1fr) 44px; gap: 10px; align-items: center; }
+  header .brand { grid-column: 1; justify-self: start; display: flex; align-items: center; justify-content: flex-start; gap: 8px; text-align: left; }
+  .brand-name { justify-content: flex-start; }
+  .menu-toggle { grid-column: 2; display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; background: transparent; border: 1px solid #ff594b70; }
   .menu-toggle span { display: block; width: 22px; height: 2px; background: #ff8c7c; transition: transform .2s, opacity .2s; }
   .menu-toggle[aria-expanded=true] span:first-child { transform: translateY(7px) rotate(45deg); }
   .menu-toggle[aria-expanded=true] span:nth-child(2) { opacity: 0; }
@@ -49,13 +59,16 @@ header { position: relative; z-index: 10; }
   .hobby-grid { grid-template-columns: 1fr; gap: 8px; }
   .timeline { grid-template-columns: 1fr; gap: 20px; }
   .experience-entry { padding-right: 12px; padding-left: 12px; }
-  .projection { grid-template-columns: 1fr; }
-  .emitter { max-width: 320px; margin: 0 auto; width: 100%; }
-  .emitter canvas { max-height: 250px; }
+  .projection { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 20px 12px; }
+  .emitter { margin: 0; width: 100%; grid-column: 1; grid-row: 1; }
+  .emitter canvas { width: 100%; height: auto; }
+  .projection .emitter i { top: 0; height: 190px; left: 18%; width: 75%; }
   .contacts { padding: 16px 0; min-width: 0; }
-  .projection .contacts { grid-template-columns: 1fr; }
-  .portrait-projection { grid-row: auto; width: 220px; }
+  .projection .contacts { grid-column: 1 / -1; grid-row: 2; grid-template-columns: 1fr; }
+  .portrait-projection { grid-column: 2; grid-row: 1; width: 100%; }
+  footer { align-items: flex-start; flex-direction: column; gap: 12px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .experience-entry, .menu-toggle span { transition: none; }
+  .projection .contacts, .portrait-projection { opacity: 1; transform: none; }
 }
