@@ -1125,13 +1125,16 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
 @media(max-width:760px){header .brand{white-space:normal}.hero .intro,.hero .biocopy,.hero .cinematic{transform:translateY(-2vh)}.hero .intro>p{font-size:18px}.biocopy .bio{grid-template-columns:1fr}.biocopy .bio>p{font-size:17px}}
 @media(max-width:580px){#projects .cards{grid-template-columns:1fr}.brand-sub{font-size:12px}.biocopy .bio dd{font-size:16px}}
 
-</style><a class="skip" href="#main">Skip to introduction</a>
+</style>
+<link rel="stylesheet" href="portfolio.css">
+<a class="skip" href="#main">Skip to introduction</a>
 <header id="top"><a class="brand" href="#top"><span class="mark"><svg aria-hidden="true" width="28" height="28"
                 viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="7" width="22" height="17" rx="6" />
                 <path d="M14 7V3M7 14h5m4 0h5m-11 5h8" />
             </svg></span> <span class="brand-name">Jill Guerrero <span class="brand-divider">|</span> <span class="brand-sub">Robotics By Jill</span></span></a>
-    <nav><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Main navigation"><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a
             href="#skills">Skills</a><a href="#hobbies">Hobbies</a><a href="#contact">Contact</a></nav>
 </header>
 
@@ -1195,118 +1198,129 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
     <section id="projects"><small class="meta">Project archive</small>
         <h2>Selected work.</h2>
         <div class="filters"></div>
-        <div class="cards"></div>
+        <div class="cards" id="project-cards"></div>
+        <button class="action projects-more" type="button" aria-expanded="false" aria-controls="project-cards">Show more</button>
     </section>
     <section id="experience"><small class="meta">Field notes</small>
         <h2>Experience.</h2>
-        <div class="timeline">
-            <h3>Research</h3>
-            <ol>
-                <li><small>[Start date – end date] · [Time / duration]</small>
-                    <h4>[Lab or institution]</h4>
-                    <p>[Describe your research question, method, and finding.]</p>
-                </li>
-            </ol>
+<div class="timeline">
+        <h3>Research</h3>
+        <ol>
+        <li class="experience-entry">
+        <small>Aug 2026 – Present</small>
+        <h4>Undergraduate Research Assistant</h4>
+        <p class="organization">DRONES LAB · University at Buffalo</p>
+        <p>Contributing to CLEAR (Large-Scale Off-Road Planning with Terrain Abstractions), developing and supporting the autonomy and navigation stack for a Clearpath Jackal UGV. Working with ROS 2 navigation, localization, mapping, and positioning and perception data for off-road operation. Conducting field tests and analyzing navigation and GNSS/RTK data to evaluate performance across challenging terrain.</p>
+        </li>
+        <li class="experience-entry">
+        <small>Oct 2025 – May 2026</small>
+        <h4>Undergraduate Research Assistant</h4>
+        <p class="organization">Wireless Robotics and Embedded Systems Lab · University at Buffalo</p>
+        <p>Researched indoor localization using Wi-Fi Fine Timing Measurement (FTM), IMU sensing, and motion capture. Designed a conceptual pipeline combining wireless ranging and inertial measurements, calibrated IMUs, and collected sensor data to investigate measurement error and localization accuracy. Trained with motion capture systems.</p>
+        </li>
+        </ol>
         </div>
         <div class="timeline">
-            <h3>Work</h3>
-            <ol>
-                <li><small>[Start date – end date] · [Time / duration]</small>
-                    <h4>[Role · organization]</h4>
-                    <p>[Describe a responsibility and its outcome.]</p>
-                </li>
-            </ol>
+        <h3>Work & leadership</h3>
+        <ol>
+        <li class="experience-entry">
+        <small>Sep 2026 – Present</small>
+        <h4>Intern / Fellow</h4>
+        <p class="organization">Finders Foundry · National Science Foundation (NSF)-funded AI-LitKit</p>
+        <p>Contributing to AI-LitKit, an AI Literacy Community Kit co-designed with Leonardo da Vinci High School in Buffalo, NY. Helped clean and visualize data collected through community research to communicate findings and guide design decisions. Currently helping design a digital game informed by that research, connecting AI literacy with the priorities and concerns of high-school students and their community.</p>
+        </li>
+        <li class="experience-entry">
+        <small>May 2026 – Present</small>
+        <h4>Autonomy & Perception Lead</h4>
+        <p class="organization">University at Buffalo Space Bulls</p>
+        <p>Leading the autonomy and perception software stack for the University Rover Challenge. Coordinating localization, mapping, perception, sensor fusion, and ROS 2 navigation; defining technical objectives and architecture; delegating projects and mentoring team members. Overseeing integration, testing, and validation for autonomous rover missions.</p>
+        </li>
+        <li class="experience-entry">
+        <small>Jan 2026 – May 2026</small>
+        <h4>Software Member</h4>
+        <p class="organization">University at Buffalo Space Bulls</p>
+        <p>Developed autonomy and perception software, including a computer-vision model classifying coarse, medium, and fine soil textures from collected images and live endoscopic-camera imagery. Built hands-on experience with ROS, localization, mapping, and robotics software testing.</p>
+        </li>
+        <li class="experience-entry">
+        <small>Jan 2018 – Dec 2020</small>
+        <h4>Participant · Team Jarvis</h4>
+        <p class="organization">FIRST LEGO League Colombia · Bogotá</p>
+        <p>Designed and programmed LEGO Mindstorms robots for regional and national competitions, collaborated on engineering presentations and core-values projects, and represented El Minuto de Dios Ciudad Verde. In 2020, earned first place in the Robot Game Alliance and a national award for Design, Strategy & Innovation.</p>
+        </li>
+        </ol>
         </div>
         <div class="timeline">
-            <h3>Hackathons</h3>
-            <ol>
-                <li><small>[Start date – end date] · [Time / duration]</small>
-                    <h4>[Event · team]</h4>
-                    <p>[Share the challenge, what you shipped, and your contribution.]</p>
-                </li>
-            </ol>
+        <h3>Hackathons</h3>
+        <ol>
+        <li class="experience-entry">
+        <small>2026</small>
+        <h4>PlayFit AI · Winner</h4>
+        <p class="organization">Sport Injury and Prevention Hackathon</p>
+        <p>Built a computer-vision fitness game that turns body movements into game controls.</p>
+        </li>
+        <li class="experience-entry">
+        <small>PlayFit AI</small>
+        <h4>PlayFit AI · Winner</h4>
+        <p class="organization">LavaPunk Hackathon</p>
+        <p>Developed PlayFit AI through collaborative hackathon work, combining body-pose estimation and interactive gameplay.</p>
+        </li>
+        <li class="experience-entry">
+        <small>SPARK</small>
+        <h4>Frostbyte Hackathon · Winner</h4>
+        <p class="organization">Tangible coding for robotics education</p>
+        <p>Created a hands-on programming experience using NFC-enabled instruction blocks, an Arduino robot, and a companion learning platform.</p>
+        </li>
+        </ol>
         </div>
     </section>
-    <section id="skills"><small class="meta">Example skill profile</small>
-        <h2>Technical skills.</h2>
-        <div class="skills">
-            <details class="skillgroup" open>
-                <summary>Languages</summary>
-                <div class="skillrow"><b>Python</b><small>Independent</small>
-                    <p>Build analysis and automation scripts.</p>
-                </div>
-                <div class="skillrow"><b>C++</b><small>Practicing</small>
-                    <p>Implement and debug small programs.</p>
-                </div>
-            </details>
-            <details class="skillgroup">
-                <summary>Frameworks</summary>
-                <div class="skillrow"><b>React</b><small>Practicing</small>
-                    <p>Build components with guidance.</p>
-                </div>
-                <div class="skillrow"><b>FastAPI</b><small>Want to learn</small>
-                    <p>Design a typed service endpoint.</p>
-                </div>
-            </details>
-            <details class="skillgroup">
-                <summary>Robotics</summary>
-                <div class="skillrow"><b>ROS 2</b><small>Practicing</small>
-                    <p>Connect nodes and inspect topics.</p>
-                </div>
-                <div class="skillrow"><b>Navigation</b><small>Want to learn</small>
-                    <p>Plan and test paths in simulation.</p>
-                </div>
-            </details>
-            <details class="skillgroup">
-                <summary>Hardware</summary>
-                <div class="skillrow"><b>Microcontrollers</b><small>Practicing</small>
-                    <p>Read inputs and drive outputs.</p>
-                </div>
-                <div class="skillrow"><b>LiDAR</b><small>Want to learn</small>
-                    <p>Calibrate a sensor and inspect scans.</p>
-                </div>
-            </details>
-        </div>
+    <section id="skills"><small class="meta">Toolbox</small>
+        <h2>Technical skills.</h2><div class="skills" id="technology-skills"></div>
     </section>
-    <section id="hobbies">
+    <section id="hobbies"><small class="meta">Beyond the lab</small>
         <h2>Off the clock.</h2>
-        <div class="chips"><span>◇ [Hobby one]</span><span>♫ [Hobby two]</span><span>✧ [Hobby three]</span></div>
+        <div class="hobby-grid">
+            <article><small class="meta">01 / Making</small><h3>Building for the fun of it.</h3><p>I like turning ideas into things I can hold and use—like my DIY smart clock, built around a whole lot of LEDs. Side projects give me room to experiment with hardware, light, and everyday objects.</p></article>
+            <article><small class="meta">02 / Puzzles</small><h3>One more solve.</h3><p>My collection of 15 Rubik’s cubes keeps my hands busy and gives me a different kind of problem to work through.</p></article>
+            <article><small class="meta">03 / Reading</small><h3>Currently on my nightstand.</h3><p><cite>Animal Farm</cite> by George Orwell and <cite>I’m Glad My Mom Died</cite> by Jennette McCurdy.</p></article>
+        </div>
     </section>
     <section id="contact"><small class="meta">Contact</small>
         <h2>Get in touch.</h2>
         <div class="projection">
             <div class="emitter"><canvas id="projector" aria-label="Rotating robot projector"></canvas><i></i></div>
             <div class="contacts">
+                <figure class="portrait-projection"><img src="images/jill-portrait.jpg" alt="Jill Guerrero" width="400" height="400" loading="lazy"></figure>
+                <div class="channel"><h3>TikTok</h3><p><a href="https://www.tiktok.com/@roboticsbyjill" target="_blank" rel="noopener noreferrer">@roboticsbyjill ↗</a></p></div>
                 <div class="channel">
                     <h3><svg aria-hidden="true" viewBox="0 0 24 24">
                             <path d="M4 9v11M4 5v1M9 20V9m0 5c0-6 9-7 9 0v6" />
                         </svg>LinkedIn</h3>
-                    <p>[Professional profile URL]</p>
+                    <p><a href="https://www.linkedin.com/in/jillian-guerrero-b00108218/" target="_blank" rel="noopener noreferrer">Jillian Guerrero ↗</a></p>
                 </div>
                 <div class="channel">
                     <h3><svg aria-hidden="true" viewBox="0 0 24 24">
                             <path
                                 d="M6 3h12q3 0 3 3v12q0 3-3 3H6q-3 0-3-3V6q0-3 3-3z M16 12a4 4 0 1 1-8 0 4 4 0 1 1 8 0 M17 7h1" />
                         </svg>Robotics Instagram</h3>
-                    <p>[Robotics Instagram handle]</p>
+                    <p><a href="https://www.instagram.com/roboticsbyjill/" target="_blank" rel="noopener noreferrer">@roboticsbyjill ↗</a></p>
                 </div>
                 <div class="channel">
                     <h3><svg aria-hidden="true" viewBox="0 0 24 24">
                             <path d="M7 5L2 12l5 7m10-14 5 7-5 7m-4-16-3 18" />
                         </svg>GitHub</h3>
-                    <p>[GitHub profile URL]</p>
+                    <p><a href="https://github.com/i-am-jillian" target="_blank" rel="noopener noreferrer">i-am-jillian ↗</a></p>
                 </div>
                 <div class="channel">
                     <h3><svg aria-hidden="true" viewBox="0 0 24 24">
                             <path d="M5 2h10l5 5v15H5z M14 2v6h6 M8 12h9m-9 4h7" />
-                        </svg>Résumés</h3>
-                    <p>[Software résumé PDF] · [Robotics résumé PDF]</p>
+                        </svg>Portfolios</h3>
+                    <p class="portfolio-placeholders"><span>Robotics portfolio <small>Coming soon</small></span><span>Software portfolio <small>Coming soon</small></span></p>
                 </div>
                 <div class="channel">
                     <h3><svg aria-hidden="true" viewBox="0 0 24 24">
                             <path d="M2 5h20v14H2z M2 6l10 8L22 6" />
                         </svg>Gmail</h3>
-                    <p>[Email address]</p>
+                    <p><a href="mailto:roboticsbyjill@gmail.com">roboticsbyjill@gmail.com</a></p>
                 </div>
             </div>
         </div>
@@ -1318,17 +1332,17 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
 
     const tracks=['All','Robotics','Software'];
     const projects=[
-      {category:'Robotics',title:'SpaceBulls Autonomous Rover',summary:'Leading autonomy and perception development for SpaceBulls’ University Rover Challenge (URC) rover. Integrating stereo vision, LiDAR, IMU, and GNSS/RTK with ROS 2 navigation, AprilTag detection, terrain geometry analysis, and autonomous navigation using Nav2.',tags:['ROS 2','ZED 2','LiDAR','GNSS/RTK','AprilTags','Nav2','Terrain Analysis','YOLO','Docker','Gazebo','Foxglove'],image:'images/rover.png',status:'In Progress'},
-      {category:'Robotics',title:'Jackal Autonomy & Localization',summary:'Contributing to CLEAR (Large-Scale Off-Road Planning with Terrain Abstractions) by developing and supporting the autonomy and navigation stack for a Clearpath Jackal UGV. Working on ROS 2 autonomous navigation, mapping, LiDAR-inertial localization, BEV localization, and GNSS/RTK sensor integration. Conducting outdoor field testing and analyzing localization and navigation performance across challenging terrain.',tags:['ROS 2','Nav2','FAST-LIO','BEV Localization','LiDAR','IMU','GNSS/RTK','Sensor Fusion','Foxglove'],image:'images/jackal.png',status:'Research'},
-      {category:'Robotics',title:'RipeSense',summary:'Developed a multi-sensor fruit ripeness detection system combining spectral sensing, computer vision, and gas measurements. Trained machine-learning models and integrated sensor fusion to classify ripeness, supporting robotic harvesting and automated sorting.',tags:['Python','ROS 2','Sensor Fusion','MobileNetV3','ONNX','Gazebo','RealSense'],image:'https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/813/650/datas/gallery.jpg',link:'https://github.com/i-am-jillian/RipeSense'},
-      {category:'Robotics',title:'FreeRTOS 4DOF Robotic Arm',summary:'Developing a 4DOF robotic arm controlled using FreeRTOS and C++, integrating servo actuation, ultrasonic and color sensors, an OLED display, and emergency controls. Designed the electrical connections, power supply integration, and robotic hardware assembly, including inlet connectors and sensor wiring.',tags:['FreeRTOS','C++','Embedded Systems','Servo Control','I²C','Power Electronics','Sensor Integration','3D Printing'],image:'images/roboticArm.png',status:'In Progress',link:'https://github.com/i-am-jillian/FreeRTOS-RoboticArm'},
-      {category:'Robotics',title:'Soil Texture Classification',summary:'Trained a machine-learning model using a public dataset to classify soil texture as coarse, medium or fine from digital microscope imagery.',tags:['Machine Learning','Computer Vision','Image Classification','Microscopy'],image:'images/soil.png',link:'https://github.com/i-am-jillian/Soil-texture-detection'},
-      {category:'Robotics',title:'SPARK - Tangible Coding Robot',summary:'Developed an interactive robotics programming kit using Arduino, C++, NFC-enabled 3D-printed instruction blocks, and a companion web platform. Physical programming sequences are translated into executable robot commands to teach fundamental programming logic through hands-on interaction.',tags:['Arduino','C++','NFC','3D Printing','HTML','CSS','JavaScript'],image:'images/spark.png',link:'https://github.com/i-am-jillian/SPARK'},
-      {category:'Software',title:'PlayFit AI',summary:'Developed a Street Fighter-style fitness gaming experience that maps webcam-based body movements to game controls using AI-powered pose estimation. Currently training our own model to recognize player movements across different body types and clothing, making the game playable by more people.',tags:['Python','OpenCV','NumPy','Pygame','Pose Estimation','Computer Vision','PyTorch'],image:'images/playfit.jpg',status:'In Progress',link:'https://github.com/i-am-jillian/PlayFit-AI'},
-      {category:'Software',title:'SafeBites',summary:'Full-stack ingredient safety platform that scans food labels and uses OCR plus collaborating AI agents to score ingredients and recommend alternatives.',tags:['Next.js','TypeScript','FastAPI','Python','Gemini','AI Agents','Auth0'],image:'images/safebites.png'},
-      {category:'Software',title:'HomeMate',summary:'Sprint-built housing platform featuring property listings, profiles, authentication, saved homes, notifications, direct messaging and listing management.',tags:['React','JavaScript','PHP','HTML','CSS','REST APIs'],image:'images/homemate.png'},
-      {category:'Software',title:'Herd - Social Community Platform',summary:'Collaborated on a React-based social platform for an HCI course, focused on interactive communities and user-centered design. Developed a web application featuring community spaces, user profiles, interactive posts, rankings, notifications, and social interactions.',tags:['React','JavaScript','HTML','CSS','React Router','Socket.IO','UI/UX','HCI'],image:'images/herd1.png'},
-      {category:'Software',title:'RAG Chunking Strategy Evaluation',summary:'Comparison of text chunking strategies and their impact on retrieval-augmented generation output quality, using IFS coaching as a domain-specific benchmark.',tags:['RAG','Retrieval','LLMs','Evaluation'],image:'images/RAG.png',link:'https://github.com/i-am-jillian/Evaluating-Retrieval-Chunking-Strategies-in-RAG-for-IFS-Coaching'}
+      {category:'Robotics',title:'SpaceBulls Autonomous Rover',year:2026,summary:'Leading autonomy and perception development for SpaceBulls’ University Rover Challenge (URC) rover. Integrating stereo vision, LiDAR, IMU, and GNSS/RTK with ROS 2 navigation, AprilTag detection, terrain geometry analysis, and autonomous navigation using Nav2.',tags:['ROS 2','ZED 2','LiDAR','GNSS/RTK','AprilTags','Nav2','Terrain Analysis','YOLO','Docker','Gazebo','Foxglove'],image:'images/rover.png',status:'In Progress'},
+      {category:'Robotics',title:'Jackal Autonomy & Localization',year:2026,summary:'Contributing to CLEAR (Large-Scale Off-Road Planning with Terrain Abstractions) by developing and supporting the autonomy and navigation stack for a Clearpath Jackal UGV. Working on ROS 2 autonomous navigation, mapping, LiDAR-inertial localization, BEV localization, and GNSS/RTK sensor integration. Conducting outdoor field testing and analyzing localization and navigation performance across challenging terrain.',tags:['ROS 2','Nav2','FAST-LIO','BEV Localization','LiDAR','IMU','GNSS/RTK','Sensor Fusion','Foxglove'],image:'images/jackal.png',status:'Research'},
+      {category:'Robotics',title:'RipeSense',year:2026,summary:'Developed a multi-sensor fruit ripeness detection system combining spectral sensing, computer vision, and gas measurements. Trained machine-learning models and integrated sensor fusion to classify ripeness, supporting robotic harvesting and automated sorting.',tags:['Python','ROS 2','Sensor Fusion','MobileNetV3','ONNX','Gazebo','RealSense'],image:'https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/813/650/datas/gallery.jpg',link:'https://github.com/i-am-jillian/RipeSense'},
+      {category:'Robotics',title:'FreeRTOS 4DOF Robotic Arm',year:2026,summary:'Developing a 4DOF robotic arm controlled using FreeRTOS and C++, integrating servo actuation, ultrasonic and color sensors, an OLED display, and emergency controls. Designed the electrical connections, power supply integration, and robotic hardware assembly, including inlet connectors and sensor wiring.',tags:['FreeRTOS','C++','Embedded Systems','Servo Control','I²C','Power Electronics','Sensor Integration','3D Printing'],image:'images/roboticArm.png',status:'In Progress',link:'https://github.com/i-am-jillian/FreeRTOS-RoboticArm'},
+      {category:'Robotics',title:'Soil Texture Classification',year:2026,summary:'Trained a machine-learning model using a public dataset to classify soil texture as coarse, medium or fine from digital microscope imagery.',tags:['Machine Learning','Computer Vision','Image Classification','Microscopy'],image:'images/soil.png',link:'https://github.com/i-am-jillian/Soil-texture-detection'},
+      {category:'Robotics',title:'SPARK - Tangible Coding Robot',year:2026,summary:'Developed an interactive robotics programming kit using Arduino, C++, NFC-enabled 3D-printed instruction blocks, and a companion web platform. Physical programming sequences are translated into executable robot commands to teach fundamental programming logic through hands-on interaction.',tags:['Arduino','C++','NFC','3D Printing','HTML','CSS','JavaScript'],image:'images/spark.png',link:'https://github.com/i-am-jillian/SPARK'},
+      {category:'Software',title:'PlayFit AI',year:2025,summary:'Developed a Street Fighter-style fitness gaming experience that maps webcam-based body movements to game controls using AI-powered pose estimation. Currently training our own model to recognize player movements across different body types and clothing, making the game playable by more people.',tags:['Python','OpenCV','NumPy','Pygame','Pose Estimation','Computer Vision','PyTorch'],image:'images/playfit.jpg',status:'In Progress',link:'https://github.com/i-am-jillian/PlayFit-AI'},
+      {category:'Software',title:'SafeBites',year:2025,summary:'Full-stack ingredient safety platform that scans food labels and uses OCR plus collaborating AI agents to score ingredients and recommend alternatives.',tags:['Next.js','TypeScript','FastAPI','Python','Gemini','AI Agents','Auth0'],image:'images/safebites.png',link:'https://github.com/i-am-jillian/SafeBites'},
+      {category:'Software',title:'HomeMate',year:2025,summary:'Sprint-built housing platform featuring property listings, profiles, authentication, saved homes, notifications, direct messaging and listing management.',tags:['React','JavaScript','PHP','HTML','CSS','REST APIs'],image:'images/homemate.png',link:'https://weatherbuddy.org/HomeMate/'},
+      {category:'Software',title:'Herd - Social Community Platform',year:2026,summary:'Collaborated on a React-based social platform for an HCI course, focused on interactive communities and user-centered design. Developed a web application featuring community spaces, user profiles, interactive posts, rankings, notifications, and social interactions.',tags:['React','JavaScript','HTML','CSS','React Router','Socket.IO','UI/UX','HCI'],image:'images/herd1.png'},
+      {category:'Software',title:'RAG Chunking Strategy Evaluation',year:2026,summary:'Comparison of text chunking strategies and their impact on retrieval-augmented generation output quality, using IFS coaching as a domain-specific benchmark.',tags:['RAG','Retrieval','LLMs','Evaluation'],image:'images/RAG.png',link:'https://github.com/i-am-jillian/Evaluating-Retrieval-Chunking-Strategies-in-RAG-for-IFS-Coaching'}
     ];
     // Covers without project photos are original illustration graphics, not hardware photos.
     const motifs={ROVER:'⌁  ◈  ⇢',JACKAL:'⌖  ◎  ↗',ARM:'◉  ╱  ◇',SOIL:'▦  ◌  ◇',PLAYFIT:'◯  ↗  ◯',SAFEBITES:'◈  ✳  ◈',HOMEMATE:'⌂  ▣  ⌂',HERD:'◉  ◌  ◉',RAG:'▤  ⇄  ◇'};
@@ -1338,7 +1352,23 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
       return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
     }
     const cards=document.querySelector('.cards');
+    const moreProjects=document.querySelector('.projects-more');
+    const mobileProjects=matchMedia('(max-width:760px)');
+    let activeTrack='All', expandedProjects=false;
+    function updateProjectVisibility(){
+      const limit=mobileProjects.matches?4:6;
+      [...cards.children].forEach((card,index)=>card.hidden=!expandedProjects&&index>=limit);
+      moreProjects.hidden=cards.children.length<=limit;
+      moreProjects.textContent=expandedProjects?'Show less':'Show more';
+      moreProjects.setAttribute('aria-expanded',String(expandedProjects));
+    }
+    moreProjects.addEventListener('click',()=>{
+      expandedProjects=!expandedProjects;updateProjectVisibility();
+      if(!expandedProjects)document.querySelector('#projects').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+    });
+    mobileProjects.addEventListener('change',updateProjectVisibility);
     function filter(t){
+      activeTrack=t;expandedProjects=false;
       cards.replaceChildren();
       projects.filter(p=>t==='All'||p.category===t).forEach(p=>{
         const card=document.createElement('article');
@@ -1346,7 +1376,7 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
         const img=document.createElement('img');img.src=p.image||cover(p.title,p.art);img.alt=p.image?p.title+' project image':p.title+' illustrative project graphic';img.loading='lazy';
         visual.append(img);card.append(visual);
         const body=document.createElement('div');body.className='project-body';
-        const type=document.createElement('small');type.className='meta';type.textContent=p.category+(p.status?' / '+p.status:'');
+        const type=document.createElement('small');type.className='meta';type.textContent=p.category+' / '+p.year+(p.status?' / '+p.status:'');
         const title=document.createElement('h3');title.textContent=p.title;
         const desc=document.createElement('p');desc.textContent=p.summary;
         const tags=document.createElement('div');tags.className='project-tags';tags.id='project-tags-'+projects.indexOf(p);
@@ -1358,6 +1388,7 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
         else{const unavailable=document.createElement('span');unavailable.className='project-link project-link-unavailable';unavailable.textContent='Project link unavailable';body.append(unavailable)}
         card.append(body);cards.append(card);
       });
+      updateProjectVisibility();
       document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===t)));
     }
     tracks.forEach(t=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=()=>filter(t);document.querySelector('.filters').append(b)});
@@ -1366,5 +1397,5 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
     document.querySelectorAll('.timeline,.chips').forEach(el=>observer.observe(el));
 
 </script>
-
+<script src="portfolio.js"></script>
 </html>
