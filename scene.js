@@ -1,8 +1,17 @@
-import {drawLab as lab} from './lab.js';
+// Keep navigation and content usable even when WebGL is unavailable.
+let lab=()=>{};
+import('./lab.js').then(module=>{lab=module.drawLab}).catch(()=>{});
 const reel=document.querySelector('.reel'), intro=document.querySelector('.intro'), bio=document.querySelector('.biocopy'), helmet=document.querySelector('.helmet'), bench=document.querySelector('.bench'), contact=document.querySelector('.projection'), pet=document.querySelector('.shin3');
 const still=matchMedia('(prefers-reduced-motion:reduce), (max-height:540px)');
 const clamp=n=>Math.max(0,Math.min(1,n)), smooth=n=>{n=clamp(n);return n*n*(3-2*n)};
-let px=0,py=0,gx=0,gy=0;
+let px=0,py=0,gx=0,gy=0,sceneTime=0;
+const labCanvas=document.querySelector('#lab');
+labCanvas.addEventListener('keydown',event=>{
+ const moves={ArrowLeft:[-.15,0],ArrowRight:[.15,0],ArrowUp:[0,-.15],ArrowDown:[0,.15]};
+ if(event.key==='Home'){event.preventDefault();px=py=0;return}
+ if(!moves[event.key])return;
+ event.preventDefault();px=Math.max(-1,Math.min(1,px+moves[event.key][0]));py=Math.max(-1,Math.min(1,py+moves[event.key][1]));
+});
 window.addEventListener('pointermove',e=>{px=e.clientX/innerWidth*2-1;py=e.clientY/innerHeight*2-1});
 function renderer(canvas,fragment){
  const gl=canvas.getContext('webgl',{alpha:true});if(!gl)return ()=>{};
@@ -43,9 +52,18 @@ const project=renderer(document.querySelector("#projector"),`precision highp flo
  if(hit.y>3.5&&hit.y<5.5)color+=base*.35;
  gl_FragColor=vec4(pow(color,vec3(.8)),1.);}`);
 const words=['Robotics Engineer','Automation Engineer','Perception Engineer','Software Developer','ML Engineer','Roboticist','AI Engineer','Student','Researcher','Lead'],role=document.querySelector('#role'),article=document.querySelector('#article');
-let lastFrame=-100;
-function paint(t){if(t-lastFrame<16){requestAnimationFrame(paint);return}lastFrame=t;const fixed=still.matches,box=reel.getBoundingClientRect(),p=clamp(-box.top/Math.max(1,box.height-innerHeight)),bi=smooth((p-.64)/.21);gx+=(px-gx)*.07;gy+=(py-gy)*.07;
+let lastFrame=-100,projectionStarted=null;
+function paint(t){if(t-lastFrame<16){requestAnimationFrame(paint);return}lastFrame=t;sceneTime=t/1000;const fixed=still.matches,box=reel.getBoundingClientRect(),p=clamp(-box.top/Math.max(1,box.height-innerHeight)),bi=smooth((p-.64)/.21);gx+=(px-gx)*.07;gy+=(py-gy)*.07;
 intro.style.opacity=fixed?1:1-bi;bio.style.opacity=fixed?1:bi;intro.inert=!fixed&&bi>.5;bio.inert=!fixed&&bi<.5;bio.style.pointerEvents=bio.inert?'none':'auto';
-if(box.bottom>0&&box.top<innerHeight){lab(fixed?1:p,fixed?0:gx,fixed?0:-gy,fixed?1:t/1000);const phase=t/1000%6,word=words[Math.floor(t/6000)%words.length];role.textContent=fixed?words[0]:word.slice(0,Math.ceil(word.length*clamp(phase<1.2?phase/1.2:phase>5?6-phase:1)));if(article)article.textContent=/^[AEIOU]/i.test(fixed?words[0]:word)?'An':'A';}
-const beam=fixed?1:smooth((innerHeight-contact.getBoundingClientRect().top)/Math.min(innerHeight*.60,320));if(contact.getBoundingClientRect().bottom>0&&contact.getBoundingClientRect().top<innerHeight)project(beam,0,0,0);contact.style.setProperty('--beam',beam);contact.style.setProperty('--reveal',fixed?1:smooth((beam-.45)/.55));contact.style.setProperty('--turn',(22-42*beam)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
+if(box.bottom>0&&box.top<innerHeight){lab(fixed?1:p,fixed?0:gx,fixed?0:-gy,fixed?1:sceneTime);const phase=t/1000%6,word=words[Math.floor(t/6000)%words.length];role.textContent=fixed?words[0]:word.slice(0,Math.ceil(word.length*clamp(phase<1.2?phase/1.2:phase>5?6-phase:1)));if(article)article.textContent=/^[AEIOU]/i.test(fixed?words[0]:word)?'An':'A';}
+const contactBox=contact.getBoundingClientRect();
+const nearBottom=document.documentElement.scrollHeight-innerHeight-scrollY<60;
+const focused=contact.contains(document.activeElement);
+if(projectionStarted===null&&(contactBox.top<innerHeight*.28||nearBottom||focused))projectionStarted=t;
+if(contactBox.top>innerHeight)projectionStarted=null;
+const beam=fixed||focused?1:projectionStarted===null?0:smooth((t-projectionStarted)/2000);
+if(contactBox.bottom>0&&contactBox.top<innerHeight)project(beam,0,0,0);
+contact.style.setProperty('--beam',beam);
+contact.style.setProperty('--reveal',fixed||focused?1:smooth((beam-.55)/.45));
+contact.style.setProperty('--turn',(22-42*beam)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
 document.querySelector('a[href="#about"]').onclick=e=>{if(!still.matches){e.preventDefault();window.scrollTo({top:scrollY+reel.getBoundingClientRect().top+(reel.offsetHeight-innerHeight)*.91,behavior:'smooth'})}};

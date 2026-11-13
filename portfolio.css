@@ -75,3 +75,56 @@ html { scroll-padding-top: calc(var(--header-height, 90px) + 16px); }
 
 .spoken-languages { margin-top: 22px; padding-top: 16px; border-top: 1px solid #414044; }
 .spoken-languages>summary { font-size: 16px; cursor: pointer; }
+
+/* Compact disclosures share the same keyboard behavior as native controls. */
+#projects .cards { align-items: start; }
+.project-disclosure>summary { list-style: none; cursor: pointer; }
+.project-disclosure { padding: 0; border: 0; background: transparent; }
+.project-disclosure>summary { display: block; margin: 0; padding: 0; border: 0; border-radius: 0; font: inherit; }
+.experience-entry details { padding: 0; border: 0; background: transparent; }
+.experience-entry summary { display: block; margin: 0; border: 0; border-radius: 0; font: inherit; }
+.programming-languages, .spoken-languages { padding-inline: 0; padding-bottom: 0; border-inline: 0; border-bottom: 0; background: transparent; }
+.project-disclosure>summary::-webkit-details-marker { display: none; }
+.project-heading { padding: 22px 48px 22px 22px; position: relative; }
+.project-heading h3 { margin: 10px 0 0; font-size: clamp(23px, 2vw, 28px); }
+.project-expand:after { content: '↓'; position: absolute; right: 22px; bottom: 24px; color: #ff8c7c; }
+.project-disclosure[open] .project-expand:after { content: '↑'; }
+#projects .project-body { padding-top: 0; }
+#projects article:focus-within { border-color: #ff7569; box-shadow: 0 0 22px #ff594b35; }
+.project-disclosure>summary:focus-visible { outline-offset: -4px; }
+.timeline { grid-template-columns: 1fr; gap: 20px; }
+.timeline ol { min-width: 0; }
+.experience-entry p, .experience-entry .organization { max-width: none; width: 100%; }
+.experience-entry details { width: 100%; }
+.hobby-grid article, .hobby-grid article:is(:hover, :focus-visible) { transform: none; animation: none; transition: none; }
+.hobby-grid article { border-color: #ff594b22; }
+.skills .skillrow { border-color: #ffffff12; }
+.skills .skillgroup { border-color: #ffffff18; }
+.skills .spoken-languages { margin-top: 36px; padding-top: 24px; border-color: #ffffff18; }
+.programming-languages>summary { margin-top: 18px; font-size: 16px; cursor: pointer; }
+footer { flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 12px; }
+#lab:focus-visible { outline: 2px solid #ff8c7c; outline-offset: -4px; }
+.projection .contacts, .portrait-projection { filter: blur(calc((1 - var(--reveal, 1)) * 5px)); }
+.projection:focus-within .contacts, .projection:focus-within .portrait-projection { filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .projection .contacts, .portrait-projection { filter: none; }
+  #projects article, #projects .project-visual img { transition: none; transform: none; }
+}
+
+.hobby-grid article:focus-visible { outline: 2px solid #ff9a8e; outline-offset: 5px; box-shadow: 0 0 24px #ff594b22; }
+.hobby-grid article { scroll-margin-top: calc(var(--header-height, 90px) + 24px); }
+.project-heading, #projects .project-body { box-sizing: border-box; }
+.projection .emitter { position: relative; }
+.projection .emitter i {
+  left: 55%; top: 10%; width: 145%; height: 75%; z-index: 1;
+  pointer-events: none;
+  clip-path: polygon(0 48%, 100% 0, 100% 100%);
+  background: linear-gradient(90deg, #fff1d8cc 0%, #ffb19477 12%, #ff665544 55%, transparent 100%);
+  opacity: var(--beam, 0);
+  filter: drop-shadow(0 0 12px #ff876a88);
+  mix-blend-mode: screen;
+}
+@media (max-width: 760px) {
+  .projection .emitter i { left: 55%; top: 10%; width: 125%; height: 75%; }
+}

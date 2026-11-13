@@ -1192,7 +1192,8 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
                 </div>
             </div>
             <div class="stage cinematic"><canvas id="lab" role="img"
-                    aria-label="Jill’s articulated helmet and robotics workbench with a Shin-chan figurine, tracked lidar rover, precision tools and robot arm"></canvas>
+                    tabindex="0" aria-label="Interactive 3D robotics workbench">A 3D robotics workbench with Jill’s articulated helmet, a rover, tools, and robot arm.</canvas>
+
             </div>
         </section>
     </div>
@@ -1200,7 +1201,7 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
         <h2>Selected work.</h2>
         <div class="filters"></div>
         <div class="cards" id="project-cards"></div>
-        <button class="action projects-more" type="button" aria-expanded="false" aria-controls="project-cards">Show more</button>
+        <button class="action projects-more" type="button" aria-expanded="false" aria-controls="project-cards">Show more ↓</button>
     </section>
     <section id="experience"><small class="meta">Field notes</small>
         <h2>Experience.</h2>
@@ -1234,9 +1235,9 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
     <section id="hobbies"><small class="meta">Beyond the lab</small>
         <h2>Off the clock.</h2>
         <div class="hobby-grid">
-            <article><small class="meta">01 / Making</small><h3>Building for the fun of it.</h3><p>Even though I build things for my career, I spend much of my free time making small projects as gifts or to make daily life easier. They let me explore circuits, electronics, and other disciplines beyond my curriculum. I made an LED smart clock as a gift, with a Pomodoro timer, guided breathing for calming moments, and little messages throughout the day. I’m also working on an AI digital closet running on an Arduino Q and a Game Boy-style handheld built with a Raspberry Pi.</p></article>
-            <article><small class="meta">02 / Puzzles</small><h3>One more solve.</h3><p>I enjoy solving puzzles, especially Rubik’s cubes—I have a collection of 15. Working through a solve is a fun way to take a break from engineering while still giving my brain something to figure out.</p></article>
-            <article><small class="meta">03 / Reading</small><h3>A book in the little gaps.</h3><p>I enjoy reading every day: on the bus, between classes, and in the little pockets of time I find around engineering. Right now, I’m reading <cite>Animal Farm</cite> by George Orwell and <cite>I’m Glad My Mom Died</cite> by Jennette McCurdy.</p></article>
+            <article tabindex="0"><small class="meta">01 / Making</small><h3>Building for the fun of it.</h3><p>Even though I build things for my career, I spend much of my free time making small projects as gifts or to make daily life easier. They let me explore circuits, electronics, and other disciplines beyond my curriculum. I made an LED smart clock as a gift, with a Pomodoro timer, guided breathing for calming moments, and little messages throughout the day. I’m also working on an AI digital closet running on an Arduino Q and a Game Boy-style handheld built with a Raspberry Pi.</p></article>
+            <article tabindex="0"><small class="meta">02 / Puzzles</small><h3>One more solve.</h3><p>I enjoy solving puzzles, especially Rubik’s cubes—I have a collection of 15. Working through a solve is a fun way to take a break from engineering while still giving my brain something to figure out.</p></article>
+            <article tabindex="0"><small class="meta">03 / Reading</small><h3>A book in the little gaps.</h3><p>I enjoy reading every day: on the bus, between classes, and in the little pockets of time I find around engineering. Right now, I’m reading <cite>Animal Farm</cite> by George Orwell and <cite>I’m Glad My Mom Died</cite> by Jennette McCurdy.</p></article>
         </div>
     </section>
     <section id="contact"><small class="meta">Contact</small>
@@ -1314,7 +1315,7 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
       const limit=mobileProjects.matches?4:6;
       [...cards.children].forEach((card,index)=>card.hidden=!expandedProjects&&index>=limit);
       moreProjects.hidden=cards.children.length<=limit;
-      moreProjects.textContent=expandedProjects?'Show less':'Show more';
+      moreProjects.textContent=expandedProjects?'Show less ↑':'Show more ↓';
       moreProjects.setAttribute('aria-expanded',String(expandedProjects));
     }
     moreProjects.addEventListener('click',()=>{
@@ -1329,7 +1330,11 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
         const card=document.createElement('article');
         const visual=document.createElement('div');visual.className='project-visual';
         const img=document.createElement('img');img.src=p.image||cover(p.title,p.art);img.alt=p.image?p.title+' project image':p.title+' illustrative project graphic';img.loading='lazy';
-        visual.append(img);card.append(visual);
+        visual.append(img);
+        const disclosure=document.createElement('details');disclosure.className='project-disclosure';
+        const summary=document.createElement('summary');
+        summary.append(visual);
+        disclosure.append(summary);card.append(disclosure);
         const body=document.createElement('div');body.className='project-body';
         const type=document.createElement('small');type.className='meta';type.textContent=p.category+' / '+p.year+(p.status?' / '+p.status:'');
         const title=document.createElement('h3');title.textContent=p.title;
@@ -1338,10 +1343,13 @@ header .brand{font-size:clamp(13px,1.45vw,19px);letter-spacing:-.035em;white-spa
         tags.setAttribute('aria-label','Technologies: '+p.tags.join(', '));
         p.tags.forEach((tag,index)=>{const chip=document.createElement('span');chip.textContent=tag;if(index>=7)chip.hidden=true;tags.append(chip)});
         if(p.tags.length>7){const hiddenCount=p.tags.length-7,more=document.createElement('button');more.type='button';more.className='more-tags';more.textContent='+'+hiddenCount;more.title='Show '+hiddenCount+' more technologies';more.setAttribute('aria-expanded','false');more.setAttribute('aria-controls',tags.id);more.onclick=()=>{const expanded=more.getAttribute('aria-expanded')==='true';tags.querySelectorAll('span').forEach((chip,index)=>{if(index>=7)chip.hidden=expanded});more.setAttribute('aria-expanded',String(!expanded));more.textContent=expanded?'+'+hiddenCount:'Show less';more.title=expanded?'Show '+hiddenCount+' more technologies':'Hide additional technologies'};tags.append(more)}
-        body.append(type,title,desc,tags);
+        const heading=document.createElement('div');heading.className='project-heading';
+        const hint=document.createElement('span');hint.className='project-expand';hint.setAttribute('aria-hidden','true');
+        heading.append(type,title,hint);summary.append(heading);
+        body.append(desc,tags);
         if(p.link){const link=document.createElement('a');link.href=p.link;link.target='_blank';link.rel='noopener noreferrer';link.className='project-link';link.textContent='View Project ↗';body.append(link)}
         else{const unavailable=document.createElement('span');unavailable.className='project-link project-link-unavailable';unavailable.textContent='Project link unavailable';body.append(unavailable)}
-        card.append(body);cards.append(card);
+        disclosure.append(body);cards.append(card);
       });
       updateProjectVisibility();
       document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===t)));
