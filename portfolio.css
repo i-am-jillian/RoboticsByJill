@@ -180,3 +180,13 @@ html::-webkit-scrollbar-corner { background: #100c0e; }
 @media (forced-colors: active) {
   html { scrollbar-color: auto; }
 }
+
+.hero .intro-summary { max-width: 43ch; font-size: clamp(18px, 1.75vw, 25px); }
+.hero .intro-summary>p { font-size: inherit; line-height: 1.48; }
+.hero .intro-summary>.action {
+  display: table; box-sizing: border-box; min-width: 190px; max-width: 100%;
+  margin: 22px auto 0; padding: 13px 32px; text-align: center;
+  font: 700 17px/1.55 Inter, Arial, sans-serif; letter-spacing: normal;
+}
+.hero .intro-summary>.action:hover { color: #fff; }
+@media (max-width: 760px) { .hero .intro-summary { font-size: 18px; } }
