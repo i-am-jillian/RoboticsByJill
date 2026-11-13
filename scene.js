@@ -61,9 +61,14 @@ const nearBottom=document.documentElement.scrollHeight-innerHeight-scrollY<60;
 const focused=contact.contains(document.activeElement);
 if(projectionStarted===null&&(contactBox.top<innerHeight*.28||nearBottom||focused))projectionStarted=t;
 if(contactBox.top>innerHeight)projectionStarted=null;
-const beam=fixed||focused?1:projectionStarted===null?0:smooth((t-projectionStarted)/2000);
-if(contactBox.bottom>0&&contactBox.top<innerHeight)project(beam,0,0,0);
+// Complete each stage before beginning the next: turn, beam, content.
+const elapsed=projectionStarted===null?0:t-projectionStarted;
+const immediate=fixed||focused;
+const turn=immediate?1:smooth(elapsed/1400);
+const beam=immediate?1:smooth((elapsed-1400)/500);
+const reveal=immediate?1:smooth((elapsed-1900)/650);
+if(contactBox.bottom>0&&contactBox.top<innerHeight)project(turn,0,0,0);
 contact.style.setProperty('--beam',beam);
-contact.style.setProperty('--reveal',fixed||focused?1:smooth((beam-.55)/.45));
-contact.style.setProperty('--turn',(22-42*beam)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
+contact.style.setProperty('--reveal',reveal);
+contact.style.setProperty('--turn',(22-42*turn)+'deg');requestAnimationFrame(paint)}requestAnimationFrame(paint);
 document.querySelector('a[href="#about"]').onclick=e=>{if(!still.matches){e.preventDefault();window.scrollTo({top:scrollY+reel.getBoundingClientRect().top+(reel.offsetHeight-innerHeight)*.91,behavior:'smooth'})}};

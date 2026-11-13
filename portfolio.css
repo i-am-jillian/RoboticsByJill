@@ -128,3 +128,55 @@ footer { flex-direction: column; justify-content: center; align-items: center; t
 @media (max-width: 760px) {
   .projection .emitter i { left: 55%; top: 10%; width: 125%; height: 75%; }
 }
+
+/* Each disclosure sizes independently; opening one never stretches its neighbors. */
+#projects .cards { align-items: start; grid-auto-rows: auto; }
+#projects article { align-self: start; height: auto; }
+.project-expand:after { font-size: 25px; line-height: 1; font-weight: 600; }
+.project-disclosure:not([open]) > .project-body { display: none; }
+.hobby-grid article:is(:hover, :focus-visible) {
+  transform: none;
+  border-color: #ff8b79;
+  background: #ff594b0d;
+  box-shadow: 0 0 22px #ff594b35, inset 0 0 12px #ff594b12;
+}
+.projection .emitter { perspective: none; overflow: visible; z-index: 0; }
+.projection .portrait-projection, .projection .contacts { position: relative; z-index: 2; }
+.projection .emitter i {
+  top: -3%; left: 96%; width: 110%; height: 65%;
+  background: linear-gradient(90deg, #fff6df 0%, #ffc59ca8 10%, #ff8f6666 45%, #ff79551a 85%, transparent);
+  clip-path: polygon(0 49%, 100% 0, 100% 100%, 0 51%);
+  mix-blend-mode: normal;
+  opacity: var(--beam, 0);
+  filter: drop-shadow(0 0 16px #ffb681);
+}
+.projection .emitter:after {
+  content: ''; position: absolute; left: 96%; top: 29.5%; width: 9%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #fff 0%, #ffe1a9 18%, #ff955980 40%, transparent 70%);
+  opacity: var(--beam, 0); pointer-events: none; z-index: 2;
+}
+
+/* Native page scrollbar: draggable thumb and clickable track. */
+html { overflow-y: scroll; scrollbar-gutter: stable; }
+html::-webkit-scrollbar { width: 16px; height: 16px; }
+html::-webkit-scrollbar-track {
+  background: #100c0e;
+  border-left: 1px solid #ff334433;
+}
+html::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid #100c0e;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e92539, #ff6874 50%, #f52d42);
+  box-shadow: inset 0 0 5px #ffb4b9, 0 0 8px #ff3344;
+}
+html::-webkit-scrollbar-thumb:hover { background: #ff6573; }
+html::-webkit-scrollbar-thumb:active { background: #ff96a0; }
+html::-webkit-scrollbar-corner { background: #100c0e; }
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-color: #ff4055 #100c0e; scrollbar-width: auto; }
+}
+@media (forced-colors: active) {
+  html { scrollbar-color: auto; }
+}

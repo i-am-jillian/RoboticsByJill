@@ -152,7 +152,7 @@ new ResizeObserver(() => {
 }).observe(pageHeader);
 document.querySelectorAll('.experience-entry details').forEach(details => details.addEventListener('toggle', scheduleHighlight));
 
-// Play the hero sequence, then stop at Meet Jill so visitors can read.
+// Reveal Meet Jill and stay there until the visitor chooses to continue.
 const exploreLink = document.querySelector('.intro .action');
 let exploreFrame = 0;
 function cancelExplore() { cancelAnimationFrame(exploreFrame); exploreFrame = 0; }
@@ -161,19 +161,20 @@ exploreLink.addEventListener('click', event => {
   cancelExplore();
   const destination = document.querySelector('#about');
   const reel = document.querySelector('.reel');
-  const staticScene = matchMedia('(prefers-reduced-motion:reduce), (max-height:540px)').matches;
-  const target = staticScene
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const staticScene = reduced || matchMedia('(max-height:540px)').matches;
+  const start = scrollY;
+  const meetJill = staticScene
     ? Math.max(0, scrollY + destination.getBoundingClientRect().top - pageHeader.offsetHeight - 16)
     : scrollY + reel.getBoundingClientRect().top + (reel.offsetHeight - innerHeight) * .91;
-  const start = scrollY;
-  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const duration = reduced ? 0 : 4200;
+  const revealDuration = 3000;
   const began = performance.now();
+  const ease = value => { const p = Math.max(0, Math.min(1, value)); return p * p * (3 - 2 * p); };
   function step(now) {
-    const progress = duration ? Math.min(1, (now - began) / duration) : 1;
-    const eased = progress * progress * (3 - 2 * progress);
-    window.scrollTo({ top: start + (target - start) * eased, behavior: 'instant' });
-    if (progress < 1) exploreFrame = requestAnimationFrame(step);
+    const elapsed = now - began;
+    const position = reduced ? meetJill : start + (meetJill - start) * ease(elapsed / revealDuration);
+    window.scrollTo({ top: position, behavior: 'instant' });
+    if (!reduced && elapsed < revealDuration) exploreFrame = requestAnimationFrame(step);
     else {
       exploreFrame = 0;
       destination.tabIndex = -1;
